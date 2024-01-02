@@ -24,3 +24,27 @@ app.use("/api", noteRouter);
 app.listen(5000, () => {
     console.log("Server listening on port 5000");
 });
+
+function getDateAndTime() {
+    // Date
+    const currentDate = new Date();
+
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth();
+    const year = currentDate.getFullYear();
+
+    const formattedDate = `${month}/${day}/${year}`;
+
+    // Time
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+
+    const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+
+    return [formattedDate, formattedTime];
+}
+
+const [date, time] = getDateAndTime();
+
+console.log(date, time)
