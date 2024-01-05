@@ -1,10 +1,10 @@
 const express = require("express");
-const { getOne, testPost, getNotes } = require("../controllers/notes");
+const { getOneNote, createNote, getNotes } = require("../controllers/notes");
 const noteRouter = express.Router();
 
 noteRouter.get("/", getNotes);
-noteRouter.get("/:id", getOne);
-noteRouter.post("/", testPost);
+noteRouter.get("/:id", getOneNote);
+noteRouter.post("/", createNote);
 noteRouter.get("/", );
 noteRouter.get("/", );
 

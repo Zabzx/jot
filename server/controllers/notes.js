@@ -1,26 +1,7 @@
 const noteSchema = require("../models/noteModel");
+const { getDateAndTime } = require("../utils/time");
 
-function getDateAndTime() {
-    // Date
-    const currentDate = new Date();
-
-    const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1;
-    const year = currentDate.getFullYear();
-
-    const formattedDate = `${month}/${day}/${year}`;
-
-    // Time
-    const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
-    const ampm = hours >= 12 ? "pm" : "am";
-
-    const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-
-    return [formattedDate, formattedTime];
-}
-
-async function getOne(req, res) {
+async function getOneNote(req, res) {
     try {
         const data = await noteSchema.findById(req.params.id);
         res.json(data);
@@ -38,7 +19,7 @@ async function getNotes(req, res) {
     }
 }
 
-async function testPost(req, res) {
+async function createNote(req, res) {
 
     const [formattedDate, formattedTime] = getDateAndTime();
 
@@ -60,7 +41,7 @@ async function testPost(req, res) {
 }
 
 module.exports = {
-    getOne,
-    testPost,
+    getOneNote,
+    createNote,
     getNotes,
 }
