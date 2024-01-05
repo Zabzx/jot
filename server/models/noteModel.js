@@ -12,6 +12,10 @@ const noteSchema = new mongoose.Schema({
     date: {
         required: true,
         type: Date,
+    },
+    time: {
+        required: true,
+        type: String,
     }
 });
 

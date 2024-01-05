@@ -1,5 +1,25 @@
 const noteSchema = require("../models/noteModel");
 
+function getDateAndTime() {
+    // Date
+    const currentDate = new Date();
+
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+
+    const formattedDate = `${month}/${day}/${year}`;
+
+    // Time
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+
+    const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+
+    return [formattedDate, formattedTime];
+}
+
 async function getOne(req, res) {
     try {
         const data = await noteSchema.findById(req.params.id);
@@ -19,19 +39,17 @@ async function getNotes(req, res) {
 }
 
 async function testPost(req, res) {
-    const currentDate = new Date();
 
-    const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1;
-    const year = currentDate.getFullYear();
-
-    const formattedDate = `${month}/${day}/${year}`;
+    const [formattedDate, formattedTime] = getDateAndTime();
 
     const data = new noteSchema({
         title: req.body.title,
         content: req.body.content,
         date: formattedDate,
+        time: formattedTime,
     });
+
+    console.log(formattedDate)
 
     try {
         const dataToSave = await data.save();
@@ -40,27 +58,6 @@ async function testPost(req, res) {
         res.status(400).json({ message: error.message });
     }
 }
-
-// function getDateAndTime() {
-//     // Date
-//     const currentDate = new Date();
-
-//     const day = currentDate.getDate();
-//     const month = currentDate.getMonth();
-//     const year = currentDate.getFullYear();
-
-//     const formattedDate = `${month}/${day}/${year}`;
-
-//     // Time
-//     const hours = currentDate.getHours();
-//     const minutes = currentDate.getMinutes();
-//     const ampm = hours >= 12 ? "pm" : "am";
-
-//     const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-
-//     return formattedDate, formattedTime;
-// }
-
 
 module.exports = {
     getOne,
