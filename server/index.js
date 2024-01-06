@@ -6,6 +6,7 @@ const mongoString = process.env.ATLAS_URL;
 const app = express();
 
 const noteRouter = require("./routes/notes");
+const todoRouter = require("./routes/todos");
 
 mongoose.connect(mongoString);
 const db = mongoose.connection;
@@ -19,7 +20,8 @@ db.once("connected", () => {
 });
 
 app.use(express.json());
-app.use("/api", noteRouter);
+app.use("/api/notes", noteRouter);
+app.use("/api/todos", todoRouter);
 
 app.listen(5000, () => {
     console.log("Server listening on port 5000");
