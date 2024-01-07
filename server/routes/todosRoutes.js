@@ -1,5 +1,5 @@
 const express = require("express");
-const { getOneTodo, getTodos, createTodo } = require("../controllers/todos");
+const { getOneTodo, getTodos, createTodo } = require("../controllers/todosController");
 const todoRouter = express.Router();
 
 todoRouter.get("/", getTodos);

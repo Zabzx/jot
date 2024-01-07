@@ -1,4 +1,4 @@
-const todoSchema = require("../models/todos");
+const todoSchema = require("../models/todosModel");
 const { getDateAndTime } = require("../utils/time");
 
 async function getOneTodo(req, res) {

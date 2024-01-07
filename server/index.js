@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const mongoString = process.env.ATLAS_URL;
 const app = express();
 
-const noteRouter = require("./routes/notes");
-const todoRouter = require("./routes/todos");
+const noteRouter = require("./routes/notesRoutes");
+const todoRouter = require("./routes/todosRoutes");
 
 mongoose.connect(mongoString);
 const db = mongoose.connection;
