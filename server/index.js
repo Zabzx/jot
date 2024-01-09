@@ -7,6 +7,7 @@ const app = express();
 
 const noteRouter = require("./routes/notesRoutes");
 const todoRouter = require("./routes/todosRoutes");
+const userRouter = require("./routes/userRoutes");
 
 mongoose.connect(mongoString);
 const db = mongoose.connection;
@@ -22,6 +23,7 @@ db.once("connected", () => {
 app.use(express.json());
 app.use("/api/notes", noteRouter);
 app.use("/api/todos", todoRouter);
+app.use("/api/user", userRouter);
 
 app.listen(5000, () => {
     console.log("Server listening on port 5000");
