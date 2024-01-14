@@ -38,7 +38,11 @@ async function login(req, res) {
 
     if (!validPassword) return res.status(400).send("Invalid password");
 
-    res.send(user)
+    // Create and assign a token
+    const token = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN_SECRET);
+    res.header("auth-token", token).send(token);
+
+    // res.send(user)
 }
 
 function authenticateToken(req, res, next) {
