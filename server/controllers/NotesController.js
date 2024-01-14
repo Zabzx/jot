@@ -12,7 +12,10 @@ async function getOneNote(req, res) {
 
 async function getNotes(req, res) {
     try {
-        const data = await noteSchema.find();
+        // const data = await noteSchema.find();
+        // console.log(req.user)
+        const data = await noteSchema.find({ userId: req.user.id });
+        console.log(data);
         res.json(data);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -24,6 +27,7 @@ async function createNote(req, res) {
     const [formattedDate, formattedTime] = getDateAndTime();
 
     const data = new noteSchema({
+        userId: req.user.id,
         title: req.body.title,
         content: req.body.content,
         date: formattedDate,

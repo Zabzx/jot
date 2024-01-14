@@ -8,11 +8,11 @@ async function auth(req, res, next) {
 
     try {
         const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        req.user = verified;
 
-        console.log(verified)
-        const test = await userSchema.findById(verified._id);
-        console.log(test);
+        const user = await userSchema.findById(verified._id);
+        req.user = user;
+
+        if (!user) return res.status(404).send(`User with the id of ${verified._id} not found.`);
         next();
     } catch (error) {
         res.status(400).send("Invalid token");

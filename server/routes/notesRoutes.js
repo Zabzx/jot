@@ -6,7 +6,7 @@ const noteRouter = express.Router();
 
 noteRouter.get("/", auth, getNotes);
 noteRouter.get("/:id", getOneNote);
-noteRouter.post("/", createNote);
+noteRouter.post("/", auth, createNote);
 noteRouter.patch("/:id", updateNote);
 noteRouter.delete("/:id", deleteNote);
 
