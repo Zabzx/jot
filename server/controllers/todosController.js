@@ -4,8 +4,11 @@ const { getDateAndTime } = require("../utils/time");
 async function getOneTodo(req, res) {
     try {
         const todos = await todoSchema.find({ userId: req.user.id });
-        const todo = todos.filter(todo => todo._id.toHexString() === req.params.id)
-        res.send(todo);
+        const todo = todos.filter(todo => todo._id.toHexString() === req.params.id);
+
+        if (!todo[0]) return res.status(404).send("Todo not found");
+
+        res.json(todo);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -43,6 +46,9 @@ async function updateTodo(req, res) {
     try {
         const todos = await todoSchema.find({ userId: req.user.id });
         const todo = todos.filter(todo => todo._id.toHexString() === req.params.id);
+
+        if (!todo[0]) return res.status(404).send("Todo not found");
+
         const id = todo[0].id;
         const updatedData = req.body;
         const options = { new: true };
@@ -51,7 +57,7 @@ async function updateTodo(req, res) {
             id, updatedData, options
         );
 
-        res.send(result);
+        res.json(result);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -60,9 +66,11 @@ async function updateTodo(req, res) {
 async function toggleTodoStatus(req, res) {
     try {
         const todos = await todoSchema.find({ userId: req.user.id });
-        let todo = todos.filter(todo => todo._id.toHexString() === req.params.id)
+        let todo = todos.filter(todo => todo._id.toHexString() === req.params.id);
+
+        if (!todo[0]) return res.status(404).send("Todo not found");
+
         todo = todo[0];
-        // console.log(todo);
 
         const id = todo.id;
         todo.completed = !todo.completed;
@@ -72,7 +80,7 @@ async function toggleTodoStatus(req, res) {
             id, todo, options
         );
 
-        res.send(result);
+        res.json(result);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -81,7 +89,10 @@ async function toggleTodoStatus(req, res) {
 async function deleteTodo(req, res) {
     try {
         const todos = await todoSchema.find({ userId: req.user.id });
-        const todo = todos.filter(todo => todo._id.toHexString())
+        const todo = todos.filter(todo => todo._id.toHexString());
+
+        if (!todo[0]) return res.status(404).send("Todo not found");
+
         const id = todo[0]._id;
         const data = await todoSchema.findByIdAndDelete(id);
         res.send(`Deleted ${data}`);

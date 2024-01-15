@@ -6,6 +6,9 @@ async function getOneNote(req, res) {
         // Make sure the correct user is accessing the data
         const notes = await noteSchema.find({ userId: req.user.id });
         const note = notes.filter(note => note._id.toHexString() === req.params.id);
+
+        if (!note[0]) return res.status(404).send("Note not found");
+
         res.json(note[0]);
     } catch (error) {
         res.status(500).json({ message: error.messasge });
@@ -44,6 +47,9 @@ async function updateNote(req, res) {
     try {
         const notes = await noteSchema.find({ userId: req.user.id });
         const note = notes.filter(note => note._id.toHexString() === req.params.id);
+
+        if (!note[0]) return res.status(404).send("Note not found");
+
         const id = note[0]._id;
         const updatedData = req.body;
         const options = { new: true };
@@ -62,7 +68,9 @@ async function deleteNote(req, res) {
     try {
         const notes = await noteSchema.find({ userId: req.user.id });
         const note = notes.filter(note => note._id.toHexString() === req.params.id);
-        console.log(note[0]);
+
+        if (!note[0]) return res.status(404).send("Note not found");
+
         const id = note[0]._id;
         const data = await noteSchema.findByIdAndDelete(id)
         res.send(`Note: ${data} deleted`);
