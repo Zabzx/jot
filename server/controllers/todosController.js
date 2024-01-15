@@ -3,8 +3,9 @@ const { getDateAndTime } = require("../utils/time");
 
 async function getOneTodo(req, res) {
     try {
-        const data = await todoSchema.findById(req.params.id);
-        res.json(data);
+        const todos = await todoSchema.find({ userId: req.user.id });
+        const todo = todos.filter(todo => todo._id.toHexString() === req.params.id)
+        res.send(todo);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -23,6 +24,7 @@ async function createTodo(req, res) {
     const [formattedDate] = getDateAndTime();
 
     const data = todoSchema({
+        userId: req.user.id,
         title: req.body.title,
         task: req.body.task,
         date: formattedDate,
@@ -39,7 +41,9 @@ async function createTodo(req, res) {
 
 async function updateTodo(req, res) {
     try {
-        const id = req.params.id;
+        const todos = await todoSchema.find({ userId: req.user.id });
+        const todo = todos.filter(todo => todo._id.toHexString() === req.params.id);
+        const id = todo[0].id;
         const updatedData = req.body;
         const options = { new: true };
 
@@ -55,8 +59,12 @@ async function updateTodo(req, res) {
 
 async function toggleTodoStatus(req, res) {
     try {
-        const id = req.params.id;
-        const todo = await todoSchema.findById(id);
+        const todos = await todoSchema.find({ userId: req.user.id });
+        let todo = todos.filter(todo => todo._id.toHexString() === req.params.id)
+        todo = todo[0];
+        // console.log(todo);
+
+        const id = todo.id;
         todo.completed = !todo.completed;
         const options = { new: true };
 
@@ -72,7 +80,9 @@ async function toggleTodoStatus(req, res) {
 
 async function deleteTodo(req, res) {
     try {
-        const id = req.params.id;
+        const todos = await todoSchema.find({ userId: req.user.id });
+        const todo = todos.filter(todo => todo._id.toHexString())
+        const id = todo[0]._id;
         const data = await todoSchema.findByIdAndDelete(id);
         res.send(`Deleted ${data}`);
     } catch (error) {
