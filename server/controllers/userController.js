@@ -36,32 +36,15 @@ async function login(req, res) {
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
 
-    if (!validPassword) return res.status(400).send("Invalid password");
+    if (!validPassword) return res.status(400).send("Wrong password");
 
     // Create and assign a token
     const token = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN_SECRET);
     res.header("auth-token", token).send(token);
-
-    // res.send(user)
-}
-
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-
-    if (token == null) return res.sendStatus(401);
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403)
-        req.user = user;
-        next()
-    })
-
 }
 
 module.exports = {
     registerUser,
     login,
-    authenticateToken,
     getUsers,
 }

@@ -12,7 +12,7 @@ async function getOneTodo(req, res) {
 
 async function getTodos(req, res) {
     try {
-        const data = await todoSchema.find();
+        const data = await todoSchema.find({ userId: req.user.id });
         res.json(data);
     } catch (error) {
         res.status(500).json({ message: error.message });

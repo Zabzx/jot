@@ -1,13 +1,12 @@
 const express = require("express");
 const { getOneNote, createNote, getNotes, updateNote, deleteNote } = require("../controllers/NotesController");
-// const { authenticateToken } = require("../controllers/userController");
-const auth = require("../middleware/verifyToken");
+const auth = require("../middleware/auth");
 const noteRouter = express.Router();
 
 noteRouter.get("/", auth, getNotes);
-noteRouter.get("/:id", getOneNote);
+noteRouter.get("/:id", auth, getOneNote);
 noteRouter.post("/", auth, createNote);
-noteRouter.patch("/:id", updateNote);
-noteRouter.delete("/:id", deleteNote);
+noteRouter.patch("/:id", auth, updateNote);
+noteRouter.delete("/:id", auth, deleteNote);
 
 module.exports = noteRouter;

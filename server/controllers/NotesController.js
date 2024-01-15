@@ -3,8 +3,10 @@ const { getDateAndTime } = require("../utils/time");
 
 async function getOneNote(req, res) {
     try {
-        const data = await noteSchema.findById(req.params.id);
-        res.json(data);
+        // Make sure the correct user is accessing the data
+        const notes = await noteSchema.find({ userId: req.user.id });
+        const note = notes.filter(note => note._id.toHexString() === req.params.id);
+        res.json(note);
     } catch (error) {
         res.status(500).json({ message: error.messasge });
     }
@@ -12,10 +14,7 @@ async function getOneNote(req, res) {
 
 async function getNotes(req, res) {
     try {
-        // const data = await noteSchema.find();
-        // console.log(req.user)
         const data = await noteSchema.find({ userId: req.user.id });
-        console.log(data);
         res.json(data);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -23,7 +22,6 @@ async function getNotes(req, res) {
 }
 
 async function createNote(req, res) {
-
     const [formattedDate, formattedTime] = getDateAndTime();
 
     const data = new noteSchema({
