@@ -14,6 +14,10 @@ async function registerUser(req, res) {
     }
 }
 
+// async function getUser(req, res) {
+
+// }
+
 async function getUsers(req, res) {
     try {
         const data = await userSchema.find();
@@ -43,8 +47,36 @@ async function login(req, res) {
     res.header("auth-token", token).send(token);
 }
 
+async function updateUsername(req, res) {
+    const user = await userSchema.find({ _id: req.user.id });
+
+    if (!user) return res.status(404).send("User not found");
+
+    const id = user[0].id;
+    const updatedData = req.body;
+    const options = { new: true };
+
+    const result = await userSchema.findByIdAndUpdate(
+        id, updatedData, options
+    )
+
+    res.send(result);
+}
+
+async function deleteUser(req, res) {
+    try {
+        const result = await userSchema.findByIdAndDelete(req.user.id);
+        res.send(result);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     registerUser,
     login,
+    // getUser,
     getUsers,
+    updateUsername,
+    deleteUser,
 }
