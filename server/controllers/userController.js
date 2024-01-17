@@ -14,18 +14,14 @@ async function registerUser(req, res) {
     }
 }
 
-// async function getUser(req, res) {
-
+// async function getUsers(req, res) {
+//     try {
+//         const data = await userSchema.find();
+//         res.status(200).json(data)
+//     } catch (error) {
+//         console.log(error);
+//     }
 // }
-
-async function getUsers(req, res) {
-    try {
-        const data = await userSchema.find();
-        res.status(200).json(data)
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 async function login(req, res) {
     const user = await userSchema.findOne({
@@ -60,7 +56,33 @@ async function updateUsername(req, res) {
         id, updatedData, options
     )
 
-    res.send(result);
+    res.json(result);
+}
+
+async function changePassword(req, res) {
+    try {
+        let user = req.user;
+
+        const oldPasswordMatch = await bcrypt.compare(req.body.password, user.password);
+        if (!oldPasswordMatch) return res.status(400).send("Invalid password");
+    
+        let newPassword = req.body.newPassword;
+        const salt = await bcrypt.genSalt(10);
+        newPassword = await bcrypt.hash(newPassword, salt);
+    
+        const id = req.user.id;
+        user.password = newPassword;
+        const updatedData = user;
+        const options = { new: true };
+    
+        const result = await userSchema.findByIdAndUpdate(
+            id, updatedData, options
+        );
+    
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 async function deleteUser(req, res) {
@@ -76,7 +98,8 @@ module.exports = {
     registerUser,
     login,
     // getUser,
-    getUsers,
+    // getUsers,
     updateUsername,
+    changePassword,
     deleteUser,
 }
