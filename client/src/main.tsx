@@ -5,7 +5,8 @@ import "@fontsource/lato"
 
 const theme = extendTheme({
   fonts: {
-    body: `"Lato", sans-serif`
+    body: `"Lato", sans-serif`,
+    heading: `"Lato", sans-serif`
   }
 })
 
