@@ -1,16 +1,22 @@
-import { Flex, Divider, Box } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
+import Todos from "./components/Todos";
+import Notes from "./components/Notes";
 
 function App() {
 
   return (
     <>
-    <Flex bg="#191919" h="100vh">
+    <Flex bg="#191919" h="100%">
       <Sidebar />
-      <Divider orientation="vertical" zIndex={2} />
       <Box flex="1" w="100%">
-      <Dashboard />
+      <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/todos" element={<Todos />} />
+      <Route path="/notes" element={<Notes />} />
+      </Routes>
       </Box>
     </Flex>
     </>

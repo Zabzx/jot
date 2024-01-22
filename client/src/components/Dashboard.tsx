@@ -4,7 +4,7 @@ import TodoCard from "./TodoCard";
 
 function Dashboard() {
     return (
-        <Box>
+        <Box bg="#191919" w="100%">
         <Container maxW="90%">
         <Heading  mt="1rem" pb="3rem" color="white">Dashboard</Heading>
         </Container>
