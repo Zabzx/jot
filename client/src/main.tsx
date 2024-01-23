@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom/client'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App.tsx'
 import "@fontsource/lato"
+import Login from './components/Login.tsx'
 
 const theme = extendTheme({
   fonts: {
@@ -16,7 +17,10 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ChakraProvider theme={theme}>
     <BrowserRouter>
-    <App />
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<App />} />
+    </Routes>
     </BrowserRouter>
   </ChakraProvider>
 )

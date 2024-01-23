@@ -28,6 +28,10 @@ app.use("/api/notes", noteRouter);
 app.use("/api/todos", todoRouter);
 app.use("/api/user", userRouter);
 
+app.get("/test", (req, res) => {
+    res.send("worked")
+})
+
 app.listen(5000, () => {
     console.log("Server listening on port 5000");
 });
