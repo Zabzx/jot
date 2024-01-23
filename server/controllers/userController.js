@@ -39,7 +39,7 @@ async function registerUser(req, res) {
 
 async function login(req, res) {
   const user = await userSchema.findOne({
-    $or: [{ username: req.body.username }, { email: req.body.email }],
+    $or: [{ username: req.body.uoe }, { email: req.body.uoe }],
   });
 
   if (!user) return res.status(400).send("Invalid email or username");

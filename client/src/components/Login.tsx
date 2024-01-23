@@ -5,12 +5,12 @@ import React, { useState } from "react";
 
 function Login() {
     type formDatatType = {
-        username: String,
+        uoe: String,
         password: String,
     }
 
     const [formData, setFormData] = useState<formDatatType>({
-        username: "",
+        uoe: "",
         password: "",
     });
 
@@ -32,8 +32,8 @@ function Login() {
             <Container maxW="50%" mt="7rem">
             <form onSubmit={(e) => testRequest(e)}>
             <Flex flexDir="column" gap="2rem">
-            <Input placeholder="Username or Email" color="white" name="usernameoremail" h="60px" onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
-            <Input placeholder="Password" color="white" name="password" h="60px" onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
+            <Input placeholder="Username or Email" color="white" name="uoe" h="60px" onChange={(e) => setFormData({ ...formData, uoe: e.target.value })} />
+            <Input placeholder="Password" type="password" color="white" name="password" h="60px" onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
             </Flex>
             <Button mt="2rem" w="100%" bg="#6675FF" color="white" h="60px" type="submit">Login</Button>
             <Text mt="1rem" color="white">Need an account? <span style={{ color: "#6675FF" }}>Sign Up</span></Text>
