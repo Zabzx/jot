@@ -6,7 +6,7 @@ function Dashboard() {
     return (
         <Box bg="#191919" w="100%">
         <Container maxW="90%">
-        <Heading  mt="1rem" pb="3rem" color="white">Dashboard</Heading>
+        <Heading onClick={() => console.log(localStorage.getItem("user-token"))} mt="1rem" pb="3rem" color="white">Dashboard</Heading>
         </Container>
 
         <Divider orientation="horizontal" />

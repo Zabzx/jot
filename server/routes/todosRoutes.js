@@ -1,7 +1,7 @@
 const express = require("express");
 const { getOneTodo, getTodos, createTodo, deleteTodo, updateTodo, toggleTodoStatus } = require("../controllers/todosController");
 const todoRouter = express.Router();
-const auth = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 
 todoRouter.get("/", auth, getTodos);
 todoRouter.get("/:id", auth, getOneTodo);

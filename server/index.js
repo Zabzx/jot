@@ -10,6 +10,8 @@ const noteRouter = require("./routes/notesRoutes");
 const todoRouter = require("./routes/todosRoutes");
 const userRouter = require("./routes/userRoutes");
 
+const {protectRoutes} = require("./middleware/auth")
+
 mongoose.connect(mongoString);
 const db = mongoose.connection;
 
@@ -27,6 +29,8 @@ app.use(cors());
 app.use("/api/notes", noteRouter);
 app.use("/api/todos", todoRouter);
 app.use("/api/user", userRouter);
+
+app.get("/protect", protectRoutes)
 
 app.get("/test", (req, res) => {
     res.send("worked")

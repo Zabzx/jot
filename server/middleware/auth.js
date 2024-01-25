@@ -8,7 +8,6 @@ async function auth(req, res, next) {
 
     try {
         const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
         const user = await userSchema.findById(verified._id);
         req.user = user;
 
@@ -19,4 +18,21 @@ async function auth(req, res, next) {
     }
 }
 
-module.exports = auth;
+function protectRoutes(req, res) {
+    const token = req.header("auth-token")
+
+    if (!token) return res.status(401).send("Access Denied")
+
+    try {
+        const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        res.send(verified)
+        
+    } catch (error) {
+        res.send("Invalid token")
+    }
+}
+
+module.exports = {
+    auth,
+    protectRoutes
+};
