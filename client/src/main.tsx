@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App.tsx'
 import "@fontsource/lato"
 import Login from './components/Login.tsx'
+import SignUp from './components/SignUp.tsx'
 import PrivateRoutes from './components/PrivateRoutes.tsx'
 
 const theme = extendTheme({
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="*" element={<App />} />
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
     </Routes>
     </BrowserRouter>
   </ChakraProvider>

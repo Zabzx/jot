@@ -25,7 +25,6 @@ const PrivateRoutes = () => {
 
   useEffect(() => {
     console.log(verified)
-    // setLoader(false)
   }, [verified])
 
   return (
