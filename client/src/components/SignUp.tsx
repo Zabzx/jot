@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Box, Flex, Button, Input, Text, Heading, Container } from "@chakra-ui/react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Pen } from "lucide-react"
 import axios from "axios"
 
@@ -19,7 +19,9 @@ function SignUp() {
         passwordConfirm: ""
     })
 
-    function testRequest(e: React.FormEvent) {
+    const navigate = useNavigate()
+
+    function registerUser(e: React.FormEvent) {
         e.preventDefault()
 
         if (formData.password !== formData.passwordConfirm) {
@@ -29,8 +31,23 @@ function SignUp() {
 
         const data = {...formData}
         delete data.passwordConfirm
+        
         axios.post("http://localhost:5000/api/user/register", data)
             .then(res => console.log(res))
+            .then(() => getCreatedUserToken())
+            .catch(err => console.log(err))
+    }
+
+    function getCreatedUserToken() {
+        const data = {
+            uoe: formData.username,
+            password: formData.password
+        }
+
+        axios.post("http://localhost:5000/api/user/login", data)
+            .then(res => localStorage.setItem("user-token", res.data))
+            .then(() => console.log(localStorage.getItem("user-token")))
+            .then(() => navigate("/"))
             .catch(err => console.log(err))
     }
 
@@ -42,7 +59,7 @@ function SignUp() {
         </Flex>
 
         <Container maxW="50%" mt="7rem">
-        <form onSubmit={(e) => testRequest(e)}>
+        <form onSubmit={(e) => registerUser(e)}>
         <Flex flexDir="column" gap="2rem">
         <Input placeholder="Username" color="white" name="username" h="60px" onChange={(e) => setFormData({...formData, username: e.target.value})} />
         <Input placeholder="Email" color="white" name="email" h="60px" onChange={(e) => setFormData({...formData, email: e.target.value})} />
