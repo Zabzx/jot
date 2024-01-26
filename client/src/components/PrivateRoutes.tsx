@@ -1,31 +1,37 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
+import { VerifiedContext } from "../Context/VerifiedContext";
 import axios from "axios";
 import { Outlet, Navigate } from "react-router-dom";
 
 const PrivateRoutes = () => {
-  const [isVerified, setIsVerified] = useState(false)
+  const [verified, setVerified] = useState(false)
+  const [loader, setLoader] = useState(true)
   const token = localStorage.getItem("user-token")
   const headers = {
-    "auth-token": token
+    "auth-token": "s"
   }
 
   useEffect(() => {
     axios.get("http://localhost:5000/protect", { headers })
       .then(res => {
         if (res.data !== "Invalid token") {
-          setIsVerified(true)
+          setVerified!(true)
         } else {
           console.log("Invalid token")
         }
+
       })
   }, [])
 
   useEffect(() => {
-    console.log(isVerified)
-  }, [isVerified])
+    console.log(verified)
+    // setLoader(false)
+  }, [verified])
 
   return (
-    isVerified ? <Outlet /> : <Navigate to="/login" />
+    !loader || verified ? <div>
+    { verified ? <Outlet /> : <Navigate state={verified} to="/login" /> }
+    </div> : "loading"
   )
 }
 
