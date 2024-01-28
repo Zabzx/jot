@@ -2,9 +2,11 @@ import { Input, Text, Heading, Box, Flex, Button, Container } from "@chakra-ui/r
 import { Pen } from "lucide-react";
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+    let navigate = useNavigate()
+
     type formDatatType = {
         uoe: String,
         password: String,
@@ -20,6 +22,7 @@ function Login() {
         console.log(formData)
         axios.post("http://localhost:5000/api/user/login", formData)
             .then(res => localStorage.setItem("user-token", res.data))
+            .then(() => navigate("/"))
             .catch(err => console.log(err))
     }
 

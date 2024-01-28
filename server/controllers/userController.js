@@ -11,7 +11,7 @@ const joiSchema = Joi.object({
 });
 
 async function registerUser(req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   // Validation
   const validation = joiSchema.validate(req.body);
 

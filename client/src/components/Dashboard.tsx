@@ -1,12 +1,24 @@
 import { Text, Heading, Container, Box, Divider, Flex } from "@chakra-ui/react";
 import NoteCard from "./NoteCard";
 import TodoCard from "./TodoCard";
+import { useEffect } from "react";
+import axios from "axios";
 
 function Dashboard() {
+
+    useEffect(() => {
+        // console.log(localStorage.getItem("user-token"))
+        const headers = { "auth-token": localStorage.getItem("user-token") }
+        // Get user notes
+        axios.get("http://localhost:5000/api/notes", { headers })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }, [])
+
     return (
         <Box bg="#191919" w="100%">
         <Container maxW="90%">
-        <Heading onClick={() => console.log(localStorage.getItem("user-token"))} mt="1rem" pb="3rem" color="white">Dashboard</Heading>
+        <Heading mt="1rem" pb="3rem" color="white">Dashboard</Heading>
         </Container>
 
         <Divider orientation="horizontal" />
