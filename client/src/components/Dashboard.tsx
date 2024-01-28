@@ -1,4 +1,4 @@
-import { Text, Heading, Container, Box, Divider, Flex } from "@chakra-ui/react";
+import { Text, Heading, Container, Box, Divider, Flex, Grid } from "@chakra-ui/react";
 import NoteCard from "./NoteCard";
 import TodoCard from "./TodoCard";
 import { useEffect, useState } from "react";
@@ -35,21 +35,33 @@ function Dashboard() {
             <Text color="white">Notes.</Text>
             <Text color="#6675FF">View All</Text>
             </Flex>
-            <Flex gap="2rem">
-            {notes?.map(note => (
-                <NoteCard key={note._id} note={note} />
-            ))}
-            </Flex>
+            <Grid templateColumns="repeat(3, 1fr)" gap="2rem">
+            {notes?.map((note, index) => {
+                if (index >= 6) {
+                    // Only render up to 6 card
+                    return
+                }
+                return (
+                    <NoteCard key={note._id} note={note} width="350px" />
+                )
+            })}
+            </Grid>
 
-            <Flex justifyContent="space-between" my="1rem">
+            <Flex justifyContent="space-between" my="2rem">
             <Text color="white">Todos.</Text>
             <Text color="#6675FF">View All</Text>
             </Flex>
 
             <Flex gap="2rem">
-            {todos?.map(todo => (
-                <TodoCard key={todo._id} todo={todo} width="200px" />
-            ))}
+            {todos?.map((todo, index) => {
+                if (index >= 5) {
+                    return
+                }
+
+                return (
+                    <TodoCard key={todo._id} todo={todo} width="200px" />
+                )
+            })}
             </Flex>
         </Container>
         </Box>

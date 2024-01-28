@@ -1,5 +1,15 @@
 const todoSchema = require("../models/todosModel");
+const Joi = require("joi")
 const { getDateAndTime } = require("../utils/time");
+
+const joiSchema = Joi.object({
+    task: Joi.string().required(),
+    userId: Joi.string().required(),
+    completed: Joi.boolean().required(),
+    date: Joi.date().required(),
+    deadline: Joi.date().optional(),
+    dateCompleted: Joi.date().optional()
+})
 
 async function getOneTodo(req, res) {
     try {
@@ -28,17 +38,22 @@ async function createTodo(req, res) {
 
     const data = todoSchema({
         userId: req.user.id,
-        title: req.body.title,
         task: req.body.task,
         date: formattedDate,
         completed: false
     });
 
-    try {
-        const dataToSave = await data.save();
-        res.status(200).json(dataToSave);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+    const validation = joiSchema.validate(data, { allowUnknown: true })
+
+    if (!validation.error) {
+        try {
+            const dataToSave = await data.save();
+            res.status(200).json(dataToSave);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    } else {
+        res.json(validation.error.details[0].message)
     }
 }
 

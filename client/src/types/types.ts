@@ -7,4 +7,5 @@ export type Note = {
 export type Todo = {
     task: string,
     _id: string,
+    deadline: Date
 }
