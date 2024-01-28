@@ -1,5 +1,14 @@
+const Joi = require("joi");
 const noteSchema = require("../models/noteModel");
 const { getDateAndTime } = require("../utils/time");
+
+const joiSchema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+    userId: Joi.string().required(),
+    date: Joi.date().required(),
+    time: Joi.string().required(),
+})
 
 async function getOneNote(req, res) {
     try {
@@ -35,11 +44,17 @@ async function createNote(req, res) {
         time: formattedTime,
     });
 
-    try {
-        const dataToSave = await data.save();
-        res.status(200).json(dataToSave);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+    const validation = joiSchema.validate(data, { allowUnknown: true })
+
+    if (!validation.error) {
+        try {
+            const dataToSave = await data.save();
+            res.status(200).json(dataToSave);
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    } else {
+        res.json(validation.error.details[0].message)
     }
 }
 
