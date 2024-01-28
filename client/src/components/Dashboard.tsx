@@ -1,18 +1,25 @@
 import { Text, Heading, Container, Box, Divider, Flex } from "@chakra-ui/react";
 import NoteCard from "./NoteCard";
 import TodoCard from "./TodoCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { Note, Todo } from "../types/types";
 
 function Dashboard() {
+    const [notes, setNotes] = useState<Note[]>()
+    const [todos, setTodos] = useState<Todo[]>()
 
     useEffect(() => {
-        // console.log(localStorage.getItem("user-token"))
         const headers = { "auth-token": localStorage.getItem("user-token") }
         // Get user notes
         axios.get("http://localhost:5000/api/notes", { headers })
-            .then(res => console.log(res))
+            .then(res => setNotes(res.data))
             .catch(err => console.log(err))
+
+            // Get user todos
+            axios.get("http://localhost:5000/api/todos", { headers })
+                .then(res => setTodos(res.data))
+                .catch(err => console.log(err))
     }, [])
 
     return (
@@ -29,8 +36,9 @@ function Dashboard() {
             <Text color="#6675FF">View All</Text>
             </Flex>
             <Flex gap="2rem">
-            <NoteCard />
-            <NoteCard />
+            {notes?.map(note => (
+                <NoteCard key={note._id} note={note} />
+            ))}
             </Flex>
 
             <Flex justifyContent="space-between" my="1rem">
@@ -39,8 +47,9 @@ function Dashboard() {
             </Flex>
 
             <Flex gap="2rem">
-            <TodoCard />
-            <TodoCard />
+            {todos?.map(todo => (
+                <TodoCard key={todo._id} todo={todo} width="200px" />
+            ))}
             </Flex>
         </Container>
         </Box>
