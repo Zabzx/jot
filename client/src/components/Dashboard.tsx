@@ -48,49 +48,63 @@ function Dashboard() {
           <Text color="white">Notes.</Text>
           <Text color="#6675FF">View All</Text>
         </Flex>
-        <Grid templateColumns="repeat(3, 1fr)" gap="2rem">
-          {notes?.length !== 0 ? (
-            <Box>
-              {notes?.map((note, index) => {
-                if (index >= 6) {
-                  // Only render up to 6 card
-                  return;
-                }
-                return <NoteCard key={note._id} note={note} width="350px" />;
-              })}
-            </Box>
-          ) : (
-            <Box mt="1rem" bg="#292929" h="150px" p="1rem" borderRadius="20px" cursor="pointer">
+
+        {notes?.length !== 0 ? (
+          <Grid templateColumns="repeat(3, 1fr)" gap="2rem">
+            {notes?.map((note, index) => {
+              if (index >= 6) {
+                // Only render up to 6 cards
+                return;
+              }
+              return <NoteCard key={note._id} note={note} width="350px" />;
+            })}
+          </Grid>
+        ) : (
+          <Box
+            mt="1rem"
+            bg="#292929"
+            h="150px"
+            w="300px"
+            p="1rem"
+            borderRadius="20px"
+            cursor="pointer"
+          >
             <Flex justifyContent="center" alignItems="center" h="100%">
-            <Plus size="50" color="white" />
+              <Plus size="50" color="white" />
             </Flex>
-            </Box>
-          )}
-        </Grid>
+          </Box>
+        )}
 
         <Flex justifyContent="space-between" my="2rem">
           <Text color="white">Todos.</Text>
           <Text color="#6675FF">View All</Text>
         </Flex>
 
-        <Flex gap="2rem">
-          { todos?.length !== 0 ? <Box>
-          {todos?.map((todo, index) => {
-            if (index >= 5) {
-              return;
-            }
+        {todos?.length !== 0 ? (
+          <Flex gap="2rem">
+            {todos?.map((todo, index) => {
+              if (index >= 5) {
+                return;
+              }
 
-            return <TodoCard key={todo._id} todo={todo} width="200px" />;
-          })}
-          </Box> : (
-            <Box mt="1rem" bg="#292929" h="150px" w="150px" p="1rem" borderRadius="20px" cursor="pointer">
+              return <TodoCard key={todo._id} todo={todo} width="200px" />;
+            })}
+          </Flex>
+        ) : (
+          <Box
+            mt="1rem"
+            bg="#292929"
+            h="150px"
+            w="150px"
+            p="1rem"
+            borderRadius="20px"
+            cursor="pointer"
+          >
             <Flex justifyContent="center" alignItems="center" h="100%">
-            <Plus size="50" color="white" />
+              <Plus size="50" color="white" />
             </Flex>
-            </Box>
-          )}
-
-        </Flex>
+          </Box>
+        )}
       </Container>
     </Box>
   );
