@@ -60,21 +60,11 @@ function Dashboard() {
               })}
             </Box>
           ) : (
-            <Box mt="1rem" bg="#292929" p="1rem" borderRadius="20px">
-            <Flex justifyContent="space-between" alignItems="center">
-            <Heading
-                mb="1rem"
-                color="white"
-                textOverflow="ellipsis" // Add text overflow style
-                isTruncated // Enable text truncation
-                fontSize="25px"
-            >
-                Add Todo
-            </Heading>
+            <Box mt="1rem" bg="#292929" h="150px" p="1rem" borderRadius="20px" cursor="pointer">
+            <Flex justifyContent="center" alignItems="center" h="100%">
             <Plus size="50" color="white" />
             </Flex>
-
-        </Box>
+            </Box>
           )}
         </Grid>
 
@@ -84,6 +74,7 @@ function Dashboard() {
         </Flex>
 
         <Flex gap="2rem">
+          { todos?.length !== 0 ? <Box>
           {todos?.map((todo, index) => {
             if (index >= 5) {
               return;
@@ -91,6 +82,14 @@ function Dashboard() {
 
             return <TodoCard key={todo._id} todo={todo} width="200px" />;
           })}
+          </Box> : (
+            <Box mt="1rem" bg="#292929" h="150px" w="150px" p="1rem" borderRadius="20px" cursor="pointer">
+            <Flex justifyContent="center" alignItems="center" h="100%">
+            <Plus size="50" color="white" />
+            </Flex>
+            </Box>
+          )}
+
         </Flex>
       </Container>
     </Box>

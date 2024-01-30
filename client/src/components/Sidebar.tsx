@@ -1,10 +1,12 @@
-import { Box, Flex, Text, Container, Button, Divider } from "@chakra-ui/react";
+import { Box, Flex, Text, Container, Button, Divider, useDisclosure } from "@chakra-ui/react";
 import { Pen, LayoutDashboard, ListChecks, NotepadText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Avatar } from '@chakra-ui/react';
 import { Switch } from '@chakra-ui/react'
+import LogOutModal from "./Modals/LogOutModal";
 
 function Sidebar() {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
         <Box position="sticky" top="0px" bg="#191919" color="white" w="20%" h="100vh">
@@ -51,10 +53,12 @@ function Sidebar() {
             </Container>
 
             <Flex position="absolute" w="100%" top="0" right="0" justifyContent="center" alignItems="flex-end" h="100%" zIndex={1}>
-            <Button bg="#FF6666" color="white">Log out</Button>
+            <Button onClick={onOpen} bg="#FF6666" color="white">Log out</Button>
             </Flex>
             <Divider position="absolute" right="0" top="0" zIndex={2} orientation="vertical" h="100%" />
         </Box>
+
+        <LogOutModal onClose={onClose} isOpen={isOpen} />
         </>
     )
 }

@@ -19,10 +19,10 @@ function Login() {
 
     function testRequest(e: React.FormEvent) {
         e.preventDefault();
-        console.log(formData)
         axios.post("http://localhost:5000/api/user/login", formData)
             .then(res => localStorage.setItem("user-token", res.data))
             .then(() => navigate("/"))
+            .then(() => console.log("wtf"))
             .catch(err => console.log(err))
     }
 
