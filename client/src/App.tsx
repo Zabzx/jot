@@ -6,6 +6,7 @@ import Todos from "./components/Todos";
 import Notes from "./components/Notes";
 import CreateNote from "./components/CreateNote";
 import ViewNote from "./components/ViewNote";
+import EditNote from "./components/EditNote";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/notes" element={<Notes />} />
       <Route path="/createnote" element={<CreateNote />} />
       <Route path="/viewnote/:id" element={<ViewNote />} />
+      <Route path="/editnote/:id" element={<EditNote />} />
       </Routes>
       </Box>
     </Flex>

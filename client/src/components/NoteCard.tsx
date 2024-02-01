@@ -9,9 +9,11 @@ type NoteCardProps = {
 }
 
 function NoteCard(props: NoteCardProps) {
-    const url = `viewnote/${props.note._id}`
+    const viewUrl = `/viewnote/${props.note._id}`
+    const editUrl = `/editnote/${props.note._id}`
+
     return (
-        <Link to={url}>
+        <Link to={viewUrl}>
         <Box mt="1rem" bg="#292929" w={props.width} p="1rem" borderRadius="20px">
             <Heading
                 mb="1rem"
@@ -26,7 +28,9 @@ function NoteCard(props: NoteCardProps) {
 
             <Flex mt="2rem" gap="1rem">
                 <ArrowUpRightFromSquare color="#6675FF" />
+                <Link to={editUrl}>
                 <FilePenLine color="#6675FF" />
+                </Link>
                 <Trash color="#FF6666" />
             </Flex>
         </Box>

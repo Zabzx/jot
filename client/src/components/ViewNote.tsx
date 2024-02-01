@@ -16,6 +16,7 @@ function ViewNote() {
             .then(res => setNote(res.data))
             .catch(err => console.log(err))
     }, [])
+    
     return (
         <Box>
             <Container maxW="90%">
