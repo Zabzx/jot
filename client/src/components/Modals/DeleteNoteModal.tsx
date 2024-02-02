@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  useToast
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -14,14 +15,26 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
-  noteId: string
+  noteId: string;
+  triggerRefresh: () => void
 };
 
 function DeleteNoteModal(props: Props) {
+  const toast = useToast()
+
     async function deleteNote() {
         const headers = { "auth-token": localStorage.getItem("user-token") }
         await axios.delete(`http://localhost:5000/api/notes/${props.noteId}`, { headers })
-            .then(res => console.log(res))
+            .then(() => {
+              props.onClose()
+              props.triggerRefresh()
+              toast({
+                title: "Success",
+                description: "Successfully deleted note",
+                status: "success",
+                isClosable: true
+              })
+            })
             .catch(err => console.log(err))
     }
 

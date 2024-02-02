@@ -7,6 +7,13 @@ import axios from "axios";
 function Notes() {
     const [notes, setNotes] = useState<Note[]>()
 
+    async function triggerRefresh() {
+        const headers = { "auth-token": localStorage.getItem("user-token") }
+        axios.get("http://localhost:5000/api/notes", { headers })
+            .then(res => setNotes(res.data))
+            .catch(err => console.log(err))
+    }
+
     useEffect(() => {
         const headers = { "auth-token": localStorage.getItem("user-token") }
         axios.get("http://localhost:5000/api/notes", { headers })
@@ -24,7 +31,7 @@ function Notes() {
         <Container maxW="90%">
             <Grid templateColumns="repeat(2, 1fr)" mb="1rem">
                 {notes?.map((note, i) => (
-                    <NoteCard note={note} key={i} width="500px" />
+                    <NoteCard triggerRefresh={triggerRefresh} note={note} key={i} width="500px" />
                 ))}
             </Grid>
         </Container>

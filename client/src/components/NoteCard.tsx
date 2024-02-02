@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 
 type NoteCardProps = {
     width?: string,
-    note: Note
+    note: Note,
+    triggerRefresh: () => void
 }
 
 function NoteCard(props: NoteCardProps) {
@@ -42,7 +43,7 @@ function NoteCard(props: NoteCardProps) {
                     onOpen()
                 }} color="#FF6666" />
             </Flex>
-            <DeleteNoteModal noteId={noteId} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+            <DeleteNoteModal triggerRefresh={props.triggerRefresh} noteId={noteId} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
         </Box>
     )
 }

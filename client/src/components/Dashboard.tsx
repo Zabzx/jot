@@ -18,6 +18,13 @@ function Dashboard() {
   const [notes, setNotes] = useState<Note[]>();
   const [todos, setTodos] = useState<Todo[]>();
 
+  async function triggerRefresh() {
+    const headers = { "auth-token": localStorage.getItem("user-token") }
+    await axios.get("http://localhost:5000/api/notes", { headers } )
+      .then(res => setNotes(res.data))
+      .catch(err => console.log(err))
+  }
+
   useEffect(() => {
     const headers = { "auth-token": localStorage.getItem("user-token") };
     // Get user notes
@@ -56,7 +63,7 @@ function Dashboard() {
                 // Only render up to 6 cards
                 return;
               }
-              return <NoteCard key={note._id} note={note} width="350px" />;
+              return <NoteCard triggerRefresh={triggerRefresh}  key={note._id} note={note} width="350px" />;
             })}
           </Grid>
         ) : (
