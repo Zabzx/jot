@@ -1,5 +1,7 @@
-import { Box, Heading, Text, Flex } from "@chakra-ui/react";
+import { useState } from "react";
+import { Box, Heading, Text, Flex, useDisclosure } from "@chakra-ui/react";
 import { ArrowUpRightFromSquare, FilePenLine, Trash } from "lucide-react";
+import DeleteNoteModal from "./Modals/DeleteNoteModal";
 import { Note } from "../types/types";
 import { Link } from "react-router-dom";
 
@@ -9,11 +11,13 @@ type NoteCardProps = {
 }
 
 function NoteCard(props: NoteCardProps) {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [noteId, setNoteId] = useState<string>("")
+
     const viewUrl = `/viewnote/${props.note._id}`
     const editUrl = `/editnote/${props.note._id}`
 
     return (
-        <Link to={viewUrl}>
         <Box mt="1rem" bg="#292929" w={props.width} p="1rem" borderRadius="20px">
             <Heading
                 mb="1rem"
@@ -27,14 +31,19 @@ function NoteCard(props: NoteCardProps) {
             <Text isTruncated textOverflow="ellipsis" fontSize="12px" color="white">{props.note.content}</Text>
 
             <Flex mt="2rem" gap="1rem">
+                <Link to={viewUrl}>
                 <ArrowUpRightFromSquare color="#6675FF" />
+                </Link>
                 <Link to={editUrl}>
                 <FilePenLine color="#6675FF" />
                 </Link>
-                <Trash color="#FF6666" />
+                <Trash cursor="pointer" onClick={() => {
+                    setNoteId(props.note._id)
+                    onOpen()
+                }} color="#FF6666" />
             </Flex>
+            <DeleteNoteModal noteId={noteId} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
         </Box>
-        </Link>
     )
 }
 
