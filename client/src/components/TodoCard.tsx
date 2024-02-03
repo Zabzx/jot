@@ -3,12 +3,13 @@ import { Todo } from "../types/types";
 
 type TodoCardProps = {
     width?: string,
-    todo: Todo
+    todo: Todo,
+    onOpen: () => void
 }
 
 function TodoCard(props: TodoCardProps) {
     return (
-        <Box w={props.width} bg="#292929" p="1rem" borderRadius="20px">
+        <Box onClick={props.onOpen} w={props.width} bg="#292929" p="1rem" borderRadius="20px" cursor="pointer">
             <Tooltip label={props.todo.task}>
             <Heading
                 fontSize="25px"

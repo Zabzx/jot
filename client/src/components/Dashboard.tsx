@@ -6,6 +6,7 @@ import {
   Divider,
   Flex,
   Grid,
+  useDisclosure
 } from "@chakra-ui/react";
 import NoteCard from "./NoteCard";
 import TodoCard from "./TodoCard";
@@ -13,8 +14,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Note, Todo } from "../types/types";
 import { Plus } from "lucide-react";
+import ViewTodoModal from "./Modals/ViewTodoModal";
 
 function Dashboard() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [notes, setNotes] = useState<Note[]>();
   const [todos, setTodos] = useState<Todo[]>();
 
@@ -94,7 +98,7 @@ function Dashboard() {
                 return;
               }
 
-              return <TodoCard key={todo._id} todo={todo} width="200px" />;
+              return <TodoCard onOpen={onOpen} key={todo._id} todo={todo} width="200px" />;
             })}
           </Flex>
         ) : (
@@ -113,6 +117,7 @@ function Dashboard() {
           </Box>
         )}
       </Container>
+      <ViewTodoModal isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }
