@@ -8,4 +8,7 @@ export type Todo = {
     task: string,
     _id: string,
     deadline: Date
+    completed: boolean,
+    dateCompleted: Date,
+    date: string
 }

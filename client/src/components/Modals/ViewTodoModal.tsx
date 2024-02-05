@@ -9,12 +9,15 @@ import {
   Button,
   Checkbox,
   Input,
+  Text
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { Todo } from "../../types/types";
 
 type Props = {
     isOpen: boolean,
     onClose: () => void
+    todo?: Todo
 }
 
 function ViewTodoModal(props: Props) {
@@ -26,10 +29,11 @@ function ViewTodoModal(props: Props) {
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Todo Title</ModalHeader>
+          <ModalHeader>{props.todo?.task}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Checkbox>Completed</Checkbox>
+            <Text mb="1rem">Date issued: {props.todo?.date}</Text>
+            <Checkbox>Completed: {props.todo?.completed}</Checkbox>
             <br />
             <Checkbox isChecked={deadline} onChange={() => setDeadline(!deadline)}>Deadline</Checkbox>
 

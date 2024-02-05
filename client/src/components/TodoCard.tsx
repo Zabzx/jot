@@ -1,15 +1,20 @@
 import { Box, Text, Heading, Tooltip } from "@chakra-ui/react";
 import { Todo } from "../types/types";
+import { Dispatch, SetStateAction } from "react";
 
 type TodoCardProps = {
     width?: string,
     todo: Todo,
     onOpen: () => void
+    setTodo: Dispatch<SetStateAction<Todo | undefined>>
 }
 
 function TodoCard(props: TodoCardProps) {
     return (
-        <Box onClick={props.onOpen} w={props.width} bg="#292929" p="1rem" borderRadius="20px" cursor="pointer">
+        <Box onClick={() => {
+            props.onOpen()
+            props.setTodo(props.todo)
+        }} w={props.width} bg="#292929" p="1rem" borderRadius="20px" cursor="pointer">
             <Tooltip label={props.todo.task}>
             <Heading
                 fontSize="25px"

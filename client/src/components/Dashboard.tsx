@@ -21,6 +21,7 @@ function Dashboard() {
 
   const [notes, setNotes] = useState<Note[]>();
   const [todos, setTodos] = useState<Todo[]>();
+  const [todo, setTodo] = useState<Todo>()
 
   async function triggerRefresh() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
@@ -98,7 +99,7 @@ function Dashboard() {
                 return;
               }
 
-              return <TodoCard onOpen={onOpen} key={todo._id} todo={todo} width="200px" />;
+              return <TodoCard setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width="200px" />;
             })}
           </Flex>
         ) : (
@@ -117,7 +118,7 @@ function Dashboard() {
           </Box>
         )}
       </Container>
-      <ViewTodoModal isOpen={isOpen} onClose={onClose} />
+      <ViewTodoModal todo={todo} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }
