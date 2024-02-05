@@ -9,42 +9,103 @@ import {
   Button,
   Checkbox,
   Input,
-  Text
+  Text,
+  Editable,
+  EditablePreview,
+  EditableInput,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Todo } from "../../types/types";
+import { useEffect } from "react";
+import axios from "axios";
 
 type Props = {
-    isOpen: boolean,
-    onClose: () => void
-    todo?: Todo
-}
+  isOpen: boolean;
+  onClose: () => void;
+  todo: Todo;
+};
 
 function ViewTodoModal(props: Props) {
-    const [deadline, setDeadline] = useState(true)
-    const [deadlineDate, setDeadlineDate] = useState("")
+  const [deadline, setDeadline] = useState(false);
+  const [formattedDate, setFormattedDate] = useState("");
+  const [editedTodo, setEditedTodo] = useState({
+    task: props.todo.task,
+    completed: props.todo.completed,
+    date: props.todo.date,
+    deadline: props.todo.deadline,
+    dateCompleted: props.todo.dateCompleted,
+  });
+
+  useEffect(() => {
+    const fd = new Date(props.todo?.date).toLocaleDateString();
+    setFormattedDate(fd);
+  }, []);
+
+  async function saveTodo() {
+    // console.log(props.todo._id)
+    const headers = { "auth-token": localStorage.getItem("user-token") }
+    axios.patch(`http://localhost:5000/api/todos/${props.todo._id}`, editedTodo, { headers })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
   return (
     <>
-
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{props.todo?.task}</ModalHeader>
+        <ModalOverlay
+          bg="none"
+          backdropFilter="auto"
+          backdropInvert="80%"
+          backdropBlur="2px"
+        />
+        <ModalContent color="white" bg="#191919">
+          <ModalHeader>
+            <Editable defaultValue={props.todo.task} w="50%" onChange={(v) => setEditedTodo({...editedTodo, task: v})}>
+              <EditablePreview />
+              <EditableInput />
+            </Editable>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text mb="1rem">Date issued: {props.todo?.date}</Text>
-            <Checkbox>Completed: {props.todo?.completed}</Checkbox>
+            <Text mb="1rem">Date issued: {formattedDate}</Text>
+            <Checkbox
+              onChange={(e) => {
+                setEditedTodo({ ...editedTodo, completed: e.target.checked });
+                if (e.target.checked) {
+                  const currentDate = new Date().toISOString().slice(0, 10);
+                  setEditedTodo({ ...editedTodo, dateCompleted: currentDate });
+                }
+              }}
+            >
+              Completed: {props.todo?.completed}
+            </Checkbox>
             <br />
-            <Checkbox isChecked={deadline} onChange={() => setDeadline(!deadline)}>Deadline</Checkbox>
+            <Checkbox
+              isChecked={deadline}
+              onChange={() => setDeadline(!deadline)}
+            >
+              Deadline
+            </Checkbox>
 
-            { deadline ?  <Input mt="1rem" type="date" onChange={(e) => setDeadlineDate(e.target.value)} /> : "" }
+            {deadline ? (
+              <Input
+                mt="1rem"
+                type="date"
+                onChange={(e) =>
+                  setEditedTodo({ ...editedTodo, deadline: e.target.value })
+                }
+              />
+            ) : (
+              ""
+            )}
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={() => console.log(deadlineDate)}>
+            <Button bg="#FF6666" color="white" mr={3} onClick={saveTodo}>
               Save
             </Button>
-            <Button variant="ghost" color="white">Close</Button>
+            <Button variant="ghost" color="white">
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

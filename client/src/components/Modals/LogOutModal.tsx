@@ -16,12 +16,12 @@ type Props = {
 };
 
 function LogOutModal(props: Props) {
-    let navigate = useNavigate()
+  let navigate = useNavigate();
 
-    function logOut() {
-        localStorage.setItem("user-token", "")
-        navigate("/login")
-    }
+  function logOut() {
+    localStorage.setItem("user-token", "");
+    navigate("/login");
+  }
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered>
       <ModalOverlay

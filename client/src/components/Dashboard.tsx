@@ -118,7 +118,7 @@ function Dashboard() {
           </Box>
         )}
       </Container>
-      <ViewTodoModal todo={todo} isOpen={isOpen} onClose={onClose} />
+      { isOpen ? <ViewTodoModal todo={todo} isOpen={isOpen} onClose={onClose} /> : ""}
     </Box>
   );
 }
