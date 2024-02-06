@@ -42,7 +42,7 @@ function ViewTodoModal(props: Props) {
   }, []);
 
   async function saveTodo() {
-    // console.log(props.todo._id)
+    // console.log(editedTodo)
     const headers = { "auth-token": localStorage.getItem("user-token") }
     axios.patch(`http://localhost:5000/api/todos/${props.todo._id}`, editedTodo, { headers })
       .then(res => console.log(res))
@@ -80,13 +80,13 @@ function ViewTodoModal(props: Props) {
             </Checkbox>
             <br />
             <Checkbox
-              isChecked={deadline}
+              isChecked={editedTodo.deadline ? true : false}
               onChange={() => setDeadline(!deadline)}
             >
               Deadline
             </Checkbox>
 
-            {deadline ? (
+            {editedTodo.deadline ? (
               <Input
                 mt="1rem"
                 type="date"
