@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -14,9 +15,7 @@ import {
   EditablePreview,
   EditableInput,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { Todo } from "../../types/types";
-import { useEffect } from "react";
 import axios from "axios";
 
 type Props = {
@@ -36,9 +35,22 @@ function ViewTodoModal(props: Props) {
     dateCompleted: props.todo.dateCompleted,
   });
 
+  const [minDate, setMinDate] = useState("")
+
   useEffect(() => {
+    // Formatting date issues
     const fd = new Date(props.todo?.date).toLocaleDateString();
     setFormattedDate(fd);
+
+    // Getting current date
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    const currentDate = `${yyyy}-${mm}-${dd}`;
+    // Set the minimum date
+    setMinDate(currentDate);
   }, []);
 
   async function saveTodo() {
@@ -48,6 +60,7 @@ function ViewTodoModal(props: Props) {
       .then(res => console.log(res))
       .catch(err => console.log(err))
   }
+
   return (
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
@@ -66,7 +79,7 @@ function ViewTodoModal(props: Props) {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text mb="1rem">Date issued: {formattedDate}</Text>
+            <Text onClick={() => console.log(minDate)} mb="1rem">Date issued: {formattedDate}</Text>
             <Checkbox
               onChange={(e) => {
                 setEditedTodo({ ...editedTodo, completed: e.target.checked });
@@ -90,6 +103,7 @@ function ViewTodoModal(props: Props) {
               <Input
                 mt="1rem"
                 type="date"
+                min={minDate}
                 onChange={(e) =>
                   setEditedTodo({ ...editedTodo, deadline: e.target.value })
                 }

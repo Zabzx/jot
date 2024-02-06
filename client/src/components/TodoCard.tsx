@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Box, Text, Heading, Tooltip } from "@chakra-ui/react";
 import { Todo } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
@@ -10,6 +11,13 @@ type TodoCardProps = {
 }
 
 function TodoCard(props: TodoCardProps) {
+    const [deadline, setDeadline] = useState("")
+
+    useEffect(() => {
+        const originalDate = props.todo.deadline
+        const formattedDate = new Date(originalDate).toLocaleDateString()
+        setDeadline(formattedDate)
+    }, [])
     return (
         <Box onClick={() => {
             props.onOpen()
@@ -27,7 +35,7 @@ function TodoCard(props: TodoCardProps) {
             </Heading>
             </Tooltip>
             <Text fontSize="12px" color="white">
-                Deadline: { props.todo.deadline ? <span style={{ color: "#FF6666" }}>Saturday 6th Jan</span> : <span style={{ color: "#6675FF" }}>No deadline</span>}
+                Deadline: { props.todo.deadline ? <span style={{ color: "#FF6666" }}>{deadline}</span> : <span style={{ color: "#6675FF" }}>No deadline</span>}
             </Text>
         </Box>
     )
