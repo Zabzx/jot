@@ -15,7 +15,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
-  noteId: string;
+  noteId: string | undefined;
   triggerRefresh: () => void
 };
 

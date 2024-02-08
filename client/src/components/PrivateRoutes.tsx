@@ -23,10 +23,6 @@ const PrivateRoutes = () => {
       })
   }, [])
 
-  useEffect(() => {
-    console.log(verified)
-  }, [verified])
-
   return (
     !loader || verified ? <div>
     { verified ? <Outlet /> : <Navigate to="/login" /> }
