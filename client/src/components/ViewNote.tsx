@@ -37,7 +37,7 @@ function ViewNote() {
             <Divider orientation="horizontal" />
 
             <Container maxW="90%">
-            <Text mt="2rem" color="white">{note?.content}</Text>
+            <Text mt="2rem" whiteSpace="pre-wrap" color="white">{note?.content}</Text>
             <Button mt="1rem" bg="#6675FF" color="white">Edit</Button>
             </Container>
             <DeleteNoteModal triggerRefresh={navigateHome} noteId={id} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
