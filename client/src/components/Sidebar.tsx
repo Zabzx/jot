@@ -4,8 +4,18 @@ import { Link } from "react-router-dom";
 import { Avatar } from '@chakra-ui/react';
 import { Switch } from '@chakra-ui/react'
 import LogOutModal from "./Modals/LogOutModal";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Sidebar() {
+    useEffect(() => {
+    const headers = { "auth-token": localStorage.getItem("user-token") }
+    axios.get("http://localhost:5000/api/user/user", { headers })
+      .then(res => setUsername(res.data.username))
+      .catch(err => console.log(err))
+  }, [])
+    
+    const [userName, setUsername] = useState<string>("")
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
@@ -17,7 +27,7 @@ function Sidebar() {
 
             <Flex flexDir="column" alignItems="center" mt="2rem">
             <Avatar size='2xl' border="2px solid white" src='' />
-            <Text mt="1rem" mb="2rem">John Anderson</Text>
+            <Text mt="1rem" mb="2rem">{userName}</Text>
             </Flex>
 
             <Container w="60%" position="relative" zIndex={2}>

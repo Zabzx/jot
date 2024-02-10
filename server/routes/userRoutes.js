@@ -4,7 +4,7 @@ const { registerUser, login, deleteUser, updateUsername, changePassword, getUser
 const { auth } = require("../middleware/auth");
 
 // userRouter.get("/users", getUsers);
-userRouter.get("/users/:id", auth, getUserInfo);
+userRouter.get("/user", auth, getUserInfo);
 userRouter.post("/register", registerUser);
 userRouter.post("/login", login);
 userRouter.patch("/update", auth, updateUsername);
