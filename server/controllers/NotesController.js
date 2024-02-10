@@ -25,6 +25,7 @@ async function getOneNote(req, res) {
 }
 
 async function getNotes(req, res) {
+    console.log(req.user)
     try {
         const data = await noteSchema.find({ userId: req.user.id });
         res.json(data);

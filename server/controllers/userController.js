@@ -29,6 +29,14 @@ async function registerUser(req, res) {
   }
 }
 
+async function getUserInfo(req, res) {
+  try {
+    const user = req.user
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json({ error: error})
+  }
+}
 // async function getUsers(req, res) {
 //     try {
 //         const data = await userSchema.find();
@@ -108,7 +116,7 @@ module.exports = {
   registerUser,
   login,
   // getUser,
-  // getUsers,
+  getUserInfo,
   updateUsername,
   changePassword,
   deleteUser,
