@@ -28,6 +28,10 @@ function Dashboard() {
     await axios.get("http://localhost:5000/api/notes", { headers } )
       .then(res => setNotes(res.data))
       .catch(err => console.log(err))
+
+    await axios.get("http://localhost:5000/api/todos", { headers })
+      .then(res => setTodos(res.data))
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -99,7 +103,7 @@ function Dashboard() {
                 return;
               }
 
-              return <TodoCard setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width="200px" />;
+              return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width="200px" />;
             })}
           </Flex>
         ) : (

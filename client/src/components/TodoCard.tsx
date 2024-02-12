@@ -9,7 +9,8 @@ type TodoCardProps = {
     width?: string,
     todo: Todo,
     onOpen: () => void
-    setTodo: Dispatch<SetStateAction<Todo | undefined>>
+    setTodo: Dispatch<SetStateAction<Todo | undefined>>,
+    triggerRefresh: () => void,
 }
 
 function TodoCard(props: TodoCardProps) {
@@ -36,7 +37,7 @@ function TodoCard(props: TodoCardProps) {
             <Text fontSize="12px" color="white">
             Deadline: { props.todo.deadline ? <span style={{ color: "#FF6666" }}>{deadline}</span> : <span style={{ color: "#6675FF" }}>No deadline</span>}
             </Text>
-            <DeleteTodoModal onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
+            <DeleteTodoModal triggerRefresh={props.triggerRefresh} todo={props.todo} onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
             <Flex mt="1rem" gap="1rem">
             <ArrowUpRightFromSquare cursor="pointer" onClick={() => {
             props.onOpen()
