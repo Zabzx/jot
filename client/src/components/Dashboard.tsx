@@ -15,6 +15,7 @@ import axios from "axios";
 import { Note, Todo } from "../types/types";
 import { Plus } from "lucide-react";
 import ViewTodoModal from "./Modals/ViewTodoModal";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,7 +63,9 @@ function Dashboard() {
       <Container maxW="90%">
         <Flex justifyContent="space-between" mt="1rem">
           <Text color="white">Notes.</Text>
+          <Link to="/notes">
           <Text color="#6675FF">View All</Text>
+          </Link>
         </Flex>
 
         {notes?.length !== 0 ? (
@@ -93,7 +96,9 @@ function Dashboard() {
 
         <Flex justifyContent="space-between" my="2rem">
           <Text color="white">Todos.</Text>
+          <Link to="/todos">
           <Text color="#6675FF">View All</Text>
+          </Link>
         </Flex>
 
         {todos?.length !== 0 ? (
