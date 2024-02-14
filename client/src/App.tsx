@@ -7,6 +7,7 @@ import Notes from "./components/Notes";
 import CreateNote from "./components/CreateNote";
 import ViewNote from "./components/ViewNote";
 import EditNote from "./components/EditNote";
+import UploadImage from "./components/UploadImage";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/createnote" element={<CreateNote />} />
       <Route path="/viewnote/:id" element={<ViewNote />} />
       <Route path="/editnote/:id" element={<EditNote />} />
+      <Route path="/upload" element={<UploadImage />} />
       </Routes>
       </Box>
     </Flex>
