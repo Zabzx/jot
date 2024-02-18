@@ -1,32 +1,33 @@
-import { useState } from "react";
+import { Box } from "@chakra-ui/react"
+import { useState } from "react"
+import axios from "axios"
 
 function UploadImage() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("")
 
-  function handleImageChange(e) {
-    const file = e.target.files[0]; // Get the first file from the FileList
-    setImage(file); // Set the selected file in state
+  const onInputChange = (e) => {
+    console.log(e.target.files[0])
+    setImage(e.target.files[0])
   }
 
-  function upload() {
-    console.log(image);
-  }
+  const submitImage = async (e) => {
+    e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("image", image);
+
+    console.log(formData);
+
+    const result = await axios.post("http://localhost:5000/upload-image", formData, { headers: {"Content-Type": "multipart/form-data"}})
+  }
   return (
-    <>
-      <h2>Upload Image</h2>
-      <input type="file" onChange={handleImageChange} />
-      <button onClick={upload}>Upload</button>
-      {/* Display the selected image */}
-      {image && (
-        <div>
-          <h3>Selected Image:</h3>
-          <img src={URL.createObjectURL(image)} alt="Selected" width="200" />
-        </div>
-      )}
-    </>
-  );
+  <Box color="white">
+      <form onSubmit={submitImage}>
+        <input type="file" accept="image/*" onChange={onInputChange}></input>
+        <button type="submit">Upload</button>
+      </form>
+  </Box>
+  )
 }
 
-export default UploadImage;
-
+export default UploadImage
