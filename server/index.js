@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const mongoString = process.env.ATLAS_URL;
 const cors = require("cors")
 const app = express();
-const auth = require("./middleware/auth.js");
+const { auth } = require("./middleware/auth.js");
 
 const noteRouter = require("./routes/notesRoutes");
 const todoRouter = require("./routes/todosRoutes");
@@ -33,18 +33,40 @@ app.use("/api/user", userRouter);
 
 app.get("/protect", protectRoutes)
 
-app.get("/test", (req, res) => {
+app.get("/test", (_, res) => {
     res.send("worked")
 })
 
-// Image uploading
-const multer = require("multer")
-const upload = multer({ dest: "uploads/" })
+// Importing Image schema
+require("./models/imageModel.js")
+const Images = mongoose.model("ImageDetails")
 
-app.post("/upload-image", upload.single("image"), async (req, res) => {
+// Image uploading
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (_, _, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (_, file, cb) {
+    const uniqueSuffix = Date.now();
+    cb(null, uniqueSuffix + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.post("/upload-image", auth, upload.single("image"), async (req, res) => {
   console.log(req.body)
-  res.send("uploaded")
+  const imageName = req.file.filename;
+  try {
+    await Images.create({ image: imageName})
+    res.json({ stateus: "ok" })
+  } catch (error) {
+    res.json({ status: error })
+  }
 })
 app.listen(5000, () => {
     console.log("Server listening on port 5000");
 });
+
