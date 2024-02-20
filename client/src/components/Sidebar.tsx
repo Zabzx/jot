@@ -13,8 +13,14 @@ function Sidebar() {
     axios.get("http://localhost:5000/api/user/user", { headers })
       .then(res => setUsername(res.data.username))
       .catch(err => console.log(err))
+
+    // Getting profile picture
+    axios.get("http://localhost:5000/get-image", { headers })
+      .then(res => setPfp(res.data.data[0]))
+      .catch(err => console.log(err))
   }, [])
     
+    const [pfp, setPfp] = useState("")
     const [userName, setUsername] = useState<string>("")
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
@@ -26,7 +32,7 @@ function Sidebar() {
             </Flex>
 
             <Flex flexDir="column" alignItems="center" mt="2rem">
-            <Avatar size='2xl' border="2px solid white" src='' />
+            { pfp != "" && pfp ? <Avatar size='2xl' border="2px solid white" src={pfp.image} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
             <Text mt="1rem" mb="2rem">{userName}</Text>
             </Flex>
 
