@@ -46,7 +46,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (_, _, cb) {
-    cb(null, "uploads/");
+    cb(null, "../client/public/");
   },
   filename: function (_, file, cb) {
     const uniqueSuffix = Date.now();
@@ -57,11 +57,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post("/upload-image", auth, upload.single("image"), async (req, res) => {
-  console.log(req.body)
   const imageName = req.file.filename;
   try {
-    await Images.create({ image: imageName})
-    res.json({ stateus: "ok" })
+    await Images.create({ image: imageName, userId: req.user.id })
+    res.json({ status: "ok" })
   } catch (error) {
     res.json({ status: error })
   }
@@ -70,3 +69,15 @@ app.listen(5000, () => {
     console.log("Server listening on port 5000");
 });
 
+app.get("/get-image", auth, async (req, res) => {
+  try {
+    // Images.find({}).then(data => {
+    // res.send({ status: "ok", data: data})
+    // })
+    Images.find({ userId: req.user.id}).then(data => {
+      res.send({ status: "ok", data: data})
+    })
+  } catch (error) {
+    res.send(error)
+  }
+})
