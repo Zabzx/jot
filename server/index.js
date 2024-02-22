@@ -56,9 +56,24 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+app.get("/find", auth, async (req, res) => {
+  await Images.find({ userId: req.user.id })
+    .then(data => {
+    if (data.length < 1) {
+      res.json({ imageStatus: "No image" })
+    } else {
+      res.json({ imageStatus: "Image present" })
+    }
+    console.log(data)
+  })
+    .catch(err => console.log(err))
+})
+
 app.post("/upload-image", auth, upload.single("image"), async (req, res) => {
   const imageName = req.file.filename;
   try {
+    // Find out if the user already has a profile picture
+    //Images.find()
     await Images.create({ image: imageName, userId: req.user.id })
     res.json({ status: "ok" })
   } catch (error) {

@@ -17,7 +17,6 @@ function UploadImage() {
     const formData = new FormData();
     formData.append("image", image);
 
-    console.log(formData);
     const headers = { "auth-token": localStorage.getItem("user-token"), "Content-Type": "multipart/form-data" }
 
     await axios.post("http://localhost:5000/upload-image", formData, { headers })
