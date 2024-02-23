@@ -1,5 +1,4 @@
-import { Box, Input, InputGroup, InputLeftElement, Heading, Avatar, Container, Divider, Flex, Icon, Button } from "@chakra-ui/react"
-import { Files } from "lucide-react"
+import { Box, Input, InputGroup, Heading, Avatar, Container, Divider, Flex, Button } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
@@ -14,8 +13,8 @@ function UserProfile() {
      .catch(err => console.log(err))
   }, [])
 
-  function handleInputChange(e) {
-    console.log(e.target.files[0])
+  function handleInputChange(e: React.FormEvent) {
+    setSelectedImage(e.target.files[0])
   }
 
   async function uploadImage() {
@@ -44,26 +43,8 @@ function UserProfile() {
       <Container maxW="90%">
       <Flex alignItems="center" gap="1rem" mt="1rem">
       { pfp !== "" && pfp ? <Avatar size="2xl" border="2px solid white" src={pfp.image} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
-          <InputGroup w="40px">
-      <InputLeftElement
-        pointerEvents="none"
-        children={<Icon as={Files} color="gray.400" fontSize="20px" />}
-      />
-      <Input
-        cursor="pointer"
-        type="file"
-        border="none"
-        boxShadow="md"
-        py={4}
-        px={6}
-        opacity={0}
-        placeholder="Choose a file..."
-        _hover={{ borderColor: "gray.300" }}
-        _focus={{ borderColor: "gray.400", boxShadow: "outline" }}
-        onChange={handleInputChange}
-      />
-    </InputGroup>
-    <Button onClick={find}>Submit Image</Button>
+      <input type="file" accept="image/*" onChange={handleInputChange} />
+    <Button onClick={uploadImage}>Submit Image</Button>
       </Flex>
       </Container>
     </Box>

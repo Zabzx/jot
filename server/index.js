@@ -73,9 +73,20 @@ app.post("/upload-image", auth, upload.single("image"), async (req, res) => {
   const imageName = req.file.filename;
   try {
     // Find out if the user already has a profile picture
-    //Images.find()
-    await Images.create({ image: imageName, userId: req.user.id })
-    res.json({ status: "ok" })
+    await Images.find({ userId: req.user.id })
+      .then(data => {
+      if (data.length < 1) {
+        Images.create({ image: imageName, userId: req.user.id })
+          .then(() => res.json({ result: "image uploaded" }))
+          .catch(err => res.json({ error: err }))
+      } else {
+        Images.findByIdAndUpdate(data[0]._id.toHexString(), { image: imageName }, { new: true })
+          .then(data => res.send(data))
+          .catch(err => res.send(err))
+      }
+    })
+    // await Images.create({ image: imageName, userId: req.user.id })
+    // res.json({ status: "ok" })
   } catch (error) {
     res.json({ status: error })
   }
