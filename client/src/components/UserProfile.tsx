@@ -13,6 +13,11 @@ function UserProfile() {
      .catch(err => console.log(err))
   }, [])
 
+  // Delete previous pfps
+  useEffect(() => {
+    console.log(pfp)
+  }, [pfp])
+
   function handleInputChange(e: React.FormEvent) {
     setSelectedImage(e.target.files[0])
   }
@@ -42,7 +47,7 @@ function UserProfile() {
       <Divider orientation="horizontal" />
       <Container maxW="90%">
       <Flex alignItems="center" gap="1rem" mt="1rem">
-      { pfp !== "" && pfp ? <Avatar size="2xl" border="2px solid white" src={pfp.image} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
+      { pfp !== "" && pfp ? <Avatar size="2xl" border="2px solid white" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
       <input type="file" accept="image/*" onChange={handleInputChange} />
     <Button onClick={uploadImage}>Submit Image</Button>
       </Flex>

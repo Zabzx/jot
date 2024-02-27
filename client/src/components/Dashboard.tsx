@@ -14,8 +14,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Note, Todo } from "../types/types";
 import { Plus } from "lucide-react";
-import ViewTodoModal from "./Modals/ViewTodoModal";
 import { Link } from "react-router-dom";
+import CreateTodoModal from "./Modals/CreateTodoModal";
 
 function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -23,6 +23,8 @@ function Dashboard() {
   const [notes, setNotes] = useState<Note[]>();
   const [todos, setTodos] = useState<Todo[]>();
   const [todo, setTodo] = useState<Todo>()
+
+  const [disclosureMode, setDisclosureMode] = useState("view")
 
   async function triggerRefresh() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
@@ -108,11 +110,15 @@ function Dashboard() {
                 return;
               }
 
-              return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width="200px" />;
+              return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width="200px" setDisclosureMode={setDisclosureMode} />;
             })}
           </Flex>
         ) : (
           <Box
+            onClick={() => {
+              setDisclosureMode("create")
+              onOpen()
+            }}
             mt="1rem"
             bg="#292929"
             h="150px"
@@ -127,7 +133,7 @@ function Dashboard() {
           </Box>
         )}
       </Container>
-      { isOpen ? <ViewTodoModal todo={todo} isOpen={isOpen} onClose={onClose} /> : ""}
+      { disclosureMode === "create" ?  <CreateTodoModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} /> : "" }
     </Box>
   );
 }

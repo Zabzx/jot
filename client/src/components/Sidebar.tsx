@@ -32,7 +32,7 @@ function Sidebar() {
             </Flex>
 
             <Flex flexDir="column" alignItems="center" mt="2rem">
-            { pfp != "" && pfp ? <Avatar size='2xl' border="2px solid white" src={pfp.image} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
+            { pfp != "" && pfp ? <Avatar size='2xl' border="2px solid white" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
             <Text mt="1rem" mb="2rem">{userName}</Text>
             </Flex>
 

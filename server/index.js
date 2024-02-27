@@ -46,7 +46,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (_, _, cb) {
-    cb(null, "../client/public/");
+    cb(null, "../client/public/pfp/");
   },
   filename: function (_, file, cb) {
     const uniqueSuffix = Date.now();
