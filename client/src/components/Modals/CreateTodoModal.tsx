@@ -1,4 +1,5 @@
-import { Button, Modal, ModalBody, Text, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
+import { Button, Modal, ModalBody, Text, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter, Input, Checkbox, Flex, Box } from "@chakra-ui/react"
+import { useState } from "react"
 
 type Props = {
   isOpen: boolean,
@@ -7,15 +8,20 @@ type Props = {
 }
 
 function CreateTodoModal(props: Props) {
+  const [deadline, setDeadline] = useState(true)
+
   return (
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Create Todo</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Modal Content</Text>
+            <Input placeholder="Task name" name="task" />
+
+            <Checkbox  mt="1rem" p="0" isChecked={deadline}>Deadline</Checkbox>
+
           </ModalBody>
 
           <ModalFooter>

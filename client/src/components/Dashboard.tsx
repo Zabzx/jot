@@ -112,6 +112,23 @@ function Dashboard() {
 
               return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width="200px" setDisclosureMode={setDisclosureMode} />;
             })}
+            <Box
+            onClick={() => {
+              setDisclosureMode("create")
+              onOpen()
+            }}
+            mt="1rem"
+            bg="#292929"
+            h="150px"
+            w="150px"
+            p="1rem"
+            borderRadius="20px"
+            cursor="pointer"
+          >
+            <Flex justifyContent="center" alignItems="center" h="100%">
+              <Plus size="50" color="white" />
+            </Flex>
+          </Box>
           </Flex>
         ) : (
           <Box

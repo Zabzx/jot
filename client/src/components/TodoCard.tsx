@@ -45,8 +45,8 @@ function TodoCard(props: TodoCardProps) {
             { disclosureMode === "view" ? <ViewTodoModal isOpen={isOpen} onClose={onClose} todo={props.todo} />: "" }
             <Flex mt="1rem" gap="1rem">
             <ArrowUpRightFromSquare cursor="pointer" onClick={() => {
-            props.setDisclosureMode("view")
-            props.onOpen()
+            setDisclosureMode("view")
+            onOpen()
             props.setTodo(props.todo)
             }} color="#6675FF" />
             <Trash color="#FF6666" onClick={() => {
