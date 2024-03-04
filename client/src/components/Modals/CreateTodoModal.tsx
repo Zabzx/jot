@@ -9,6 +9,10 @@ type Props = {
 
 function CreateTodoModal(props: Props) {
   const [deadline, setDeadline] = useState(true)
+  const [todo, setTodo] = useState({
+    task: null,
+    deadline: null,
+  })
 
   return (
     <>
@@ -20,7 +24,9 @@ function CreateTodoModal(props: Props) {
           <ModalBody>
             <Input placeholder="Task name" name="task" />
 
-            <Checkbox  mt="1rem" p="0" isChecked={deadline}>Deadline</Checkbox>
+            <Checkbox  mt="1rem" p="0" onChange={() =>  setDeadline(!deadline)} isChecked={deadline}>Deadline</Checkbox>
+
+            { deadline ? <Input type="date" mt="1rem" onChange={(e) => setTodo({...todo, deadline: e.target.value})} /> : "" }
 
           </ModalBody>
 
@@ -28,7 +34,7 @@ function CreateTodoModal(props: Props) {
             <Button colorScheme='blue' mr={3} onClick={props.onClose}>
               Close
             </Button>
-            <Button variant='ghost'>Secondary Action</Button>
+            <Button onClick={() => console.log(todo)} variant='ghost'>Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
