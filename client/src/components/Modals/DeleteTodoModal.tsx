@@ -15,8 +15,9 @@ function DeleteTodoModal(props: Props) {
     const id = props.todo._id
     const headers = { "auth-token": localStorage.getItem("user-token") }
     await axios.delete(`http://localhost:5000/api/todos/${id}`, { headers })
-      .then(res => console.log(res))
-      .then(() => {
+      .then((res) => {
+      console.log(id)
+      console.log(res)
       props.onClose()
       props.triggerRefresh()
       })

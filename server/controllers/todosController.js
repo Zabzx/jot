@@ -104,7 +104,7 @@ async function toggleTodoStatus(req, res) {
 async function deleteTodo(req, res) {
     try {
         const todos = await todoSchema.find({ userId: req.user.id });
-        const todo = todos.filter(todo => todo._id.toHexString());
+        const todo = todos.filter(todo => todo._id.toHexString() === req.params.id);
 
         if (!todo[0]) return res.status(404).send("Todo not found");
 
