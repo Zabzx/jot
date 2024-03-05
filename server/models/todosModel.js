@@ -19,7 +19,7 @@ const todoSchema = new mongoose.Schema({
     },
     deadline: {
         required: false,
-        type: Date,
+        type: String,
     },
     dateCompleted: {
         required: false,

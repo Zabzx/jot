@@ -22,6 +22,7 @@ function CreateTodoModal(props: Props) {
   }, [deadline])
 
   async function createTodo() {
+    // console.log(todo)
     if (!todo.task || todo.task === "") {
       console.log("Please enter a todo task.")
       return

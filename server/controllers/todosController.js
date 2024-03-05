@@ -7,7 +7,7 @@ const joiSchema = Joi.object({
     userId: Joi.string().required(),
     completed: Joi.boolean().required(),
     date: Joi.date().required(),
-    deadline: Joi.date().optional(),
+    deadline: Joi.string().optional(),
     dateCompleted: Joi.date().optional()
 })
 
@@ -40,6 +40,7 @@ async function createTodo(req, res) {
         userId: req.user.id,
         task: req.body.task,
         date: formattedDate,
+        deadline: req.body.deadline,
         completed: false
     });
 

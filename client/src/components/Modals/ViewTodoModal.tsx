@@ -79,7 +79,7 @@ function ViewTodoModal(props: Props) {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text onClick={() => console.log(minDate)} mb="1rem">Date issued: {formattedDate}</Text>
+            <Text onClick={() => console.log(props.todo)} mb="1rem">Date issued: {formattedDate}</Text>
             <Checkbox
               onChange={(e) => {
                 setEditedTodo({ ...editedTodo, completed: e.target.checked });

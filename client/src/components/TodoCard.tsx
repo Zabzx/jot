@@ -26,7 +26,7 @@ function TodoCard(props: TodoCardProps) {
         setDeadline(formattedDate)
     }, [])
     return (
-        <Box w={props.width} bg="#292929" p="1rem" borderRadius="20px">
+        <Box w={props.width} bg="#292929" p="1rem" borderRadius="20px" onClick={() => console.log(props.todo.deadline.split("/")[1])}>
             <Tooltip label={props.todo.task}>
             <Heading
                 fontSize="25px"
