@@ -7,16 +7,15 @@ type Props = {
     onClose: () => void,
     onOpen: () => void,
     todo: Todo,
+    todoId: string | undefined,
     triggerRefresh: () => void,
   }
 
 function DeleteTodoModal(props: Props) {
   async function deleteTodo() {
-    const id = props.todo._id
     const headers = { "auth-token": localStorage.getItem("user-token") }
-    await axios.delete(`http://localhost:5000/api/todos/${id}`, { headers })
+    await axios.delete(`http://localhost:5000/api/todos/${props.todoId}`, { headers })
       .then((res) => {
-      console.log(id)
       console.log(res)
       props.onClose()
       props.triggerRefresh()

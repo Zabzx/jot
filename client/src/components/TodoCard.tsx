@@ -41,7 +41,7 @@ function TodoCard(props: TodoCardProps) {
             <Text fontSize="12px" color="white">
             Deadline: { props.todo.deadline ? <span style={{ color: "#FF6666" }}>{deadline}</span> : <span style={{ color: "#6675FF" }}>No deadline</span>}
             </Text>
-            { disclosureMode === "delete" ? <DeleteTodoModal triggerRefresh={props.triggerRefresh} todo={props.todo} onOpen={onOpen} isOpen={isOpen} onClose={onClose} /> : "" }
+            { disclosureMode === "delete" ? <DeleteTodoModal triggerRefresh={props.triggerRefresh} todo={props.todo} todoId={props.todo._id} onOpen={onOpen} isOpen={isOpen} onClose={onClose} /> : "" }
             { disclosureMode === "view" ? <ViewTodoModal isOpen={isOpen} onClose={onClose} todo={props.todo} />: "" }
             <Flex mt="1rem" gap="1rem">
             <ArrowUpRightFromSquare cursor="pointer" onClick={() => {
