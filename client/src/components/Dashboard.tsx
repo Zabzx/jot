@@ -55,9 +55,11 @@ function Dashboard() {
   return (
     <Box bg="#191919" w="100%">
       <Container maxW="90%">
+        <Link to="/profile">
         <Heading mt="1rem" pb="3rem" color="white">
           Dashboard
         </Heading>
+        </Link>
       </Container>
 
       <Divider orientation="horizontal" />

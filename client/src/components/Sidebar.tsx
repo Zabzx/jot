@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Container, Button, Divider, useDisclosure } from "@chakra-ui/react";
 import { Pen, LayoutDashboard, ListChecks, NotepadText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from '@chakra-ui/react';
 import { Switch } from '@chakra-ui/react'
 import LogOutModal from "./Modals/LogOutModal";
@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Sidebar() {
+    const navigate = useNavigate()
+
     useEffect(() => {
     const headers = { "auth-token": localStorage.getItem("user-token") }
     axios.get("http://localhost:5000/api/user/user", { headers })
@@ -31,7 +33,7 @@ function Sidebar() {
             <Text fontSize="32px">Jot</Text>
             </Flex>
 
-            <Flex flexDir="column" alignItems="center" mt="2rem">
+            <Flex position="relative" zIndex={6} onClick={() => navigate("/profile")} cursor="pointer" flexDir="column" alignItems="center" mt="2rem">
             { pfp != "" && pfp ? <Avatar size='2xl' border="2px solid white" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
             <Text mt="1rem" mb="2rem">{userName}</Text>
             </Flex>

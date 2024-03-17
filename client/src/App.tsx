@@ -7,7 +7,6 @@ import Notes from "./components/Notes";
 import CreateNote from "./components/CreateNote";
 import ViewNote from "./components/ViewNote";
 import EditNote from "./components/EditNote";
-import UploadImage from "./components/UploadImage";
 import UserProfile from "./components/UserProfile";
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
       <Route path="/createnote" element={<CreateNote />} />
       <Route path="/viewnote/:id" element={<ViewNote />} />
       <Route path="/editnote/:id" element={<EditNote />} />
-      <Route path="/upload" element={<UploadImage />} />
       <Route path="/profile" element={<UserProfile />} />
       </Routes>
       </Box>
