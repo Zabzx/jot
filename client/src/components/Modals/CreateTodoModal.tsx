@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, Text, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter, Input, Checkbox, Flex, Box } from "@chakra-ui/react"
+import { Button, Modal, ModalBody,  ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter, Input, Checkbox, useToast } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
@@ -6,6 +6,7 @@ type Props = {
   isOpen: boolean,
   onOpen: () => void,
   onClose: () => void,
+  triggerRefresh: () => void,
 }
 
 function CreateTodoModal(props: Props) {
@@ -14,6 +15,8 @@ function CreateTodoModal(props: Props) {
     task: null,
     deadline: null,
   })
+
+  const toast = useToast()
 
   useEffect(() => {
     if (!deadline) {
@@ -29,7 +32,23 @@ function CreateTodoModal(props: Props) {
     }
     const headers = { "auth-token": localStorage.getItem("user-token" ) }
     await axios.post("http://localhost:5000/api/todos", todo, { headers })
-      .then(res => console.log(res))
+      .then((res) => {
+        toast({
+          title: "Success",
+          description: "Successfully created new Todo.",
+          isClosable: true,
+          status: "success"
+        })
+        props.onClose()
+        props.triggerRefresh()
+        // const dateString = res.data
+        // const dayAdd1 = new Date(dateString)
+        // // dayAdd1.setDate(dayAdd1.getDate() + 1)
+        // // console.log(dayAdd1)
+
+        // const realString = dayAdd1.toISOString().slice(0, 10)
+        // console.log(realString)
+      })
       .catch(err => console.log(err))
   }
 

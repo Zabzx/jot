@@ -17,16 +17,20 @@ type TodoCardProps = {
 
 function TodoCard(props: TodoCardProps) {
     const { onOpen, isOpen, onClose } = useDisclosure()
-    const [deadline, setDeadline] = useState("")
+    const [deadline, setDeadline] = useState<Date | string>("")
 
     const [disclosureMode, setDisclosureMode] = useState("view")
     useEffect(() => {
-        const originalDate = props.todo.deadline
-        const formattedDate = new Date(originalDate).toLocaleDateString()
-        setDeadline(formattedDate)
+        // const originalDate = props.todo.deadline
+        // const formattedDate = new Date(originalDate).toLocaleDateString()
+        // setDeadline(formattedDate)
+        const oldDeadline = new Date(props.todo.deadline)
+        const newDeadline = oldDeadline.toISOString().slice(0, 10)
+        setDeadline(newDeadline)
     }, [])
+    
     return (
-        <Box w={props.width} bg="#292929" p="1rem" borderRadius="20px" onClick={() => console.log(props.todo.deadline.split("/")[1])}>
+        <Box w={props.width} bg="#292929" p="1rem" borderRadius="20px" h="150px">
             <Tooltip label={props.todo.task}>
             <Heading
                 fontSize="25px"
@@ -39,7 +43,7 @@ function TodoCard(props: TodoCardProps) {
             </Heading>
             </Tooltip>
             <Text fontSize="12px" color="white">
-            Deadline: { props.todo.deadline ? <span style={{ color: "#FF6666" }}>{deadline}</span> : <span style={{ color: "#6675FF" }}>No deadline</span>}
+            Deadline: { props.todo.deadline ? <span style={{ color: "#FF6666" }}>{deadline.toString()}</span> : <span style={{ color: "#6675FF" }}>No deadline</span>}
             </Text>
             { disclosureMode === "delete" ? <DeleteTodoModal triggerRefresh={props.triggerRefresh} todo={props.todo} todoId={props.todo._id} onOpen={onOpen} isOpen={isOpen} onClose={onClose} /> : "" }
             { disclosureMode === "view" ? <ViewTodoModal isOpen={isOpen} onClose={onClose} todo={props.todo} />: "" }

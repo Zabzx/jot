@@ -106,7 +106,7 @@ function Dashboard() {
         </Flex>
 
         {todos?.length !== 0 ? (
-          <Flex gap="2rem">
+          <Flex gap="2rem"  alignItems="center">
             {todos?.map((todo, index) => {
               if (index >= 5) {
                 return;
@@ -152,7 +152,7 @@ function Dashboard() {
           </Box>
         )}
       </Container>
-      { disclosureMode === "create" ?  <CreateTodoModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} /> : "" }
+      { disclosureMode === "create" ?  <CreateTodoModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} triggerRefresh={triggerRefresh} /> : "" }
     </Box>
   );
 }
