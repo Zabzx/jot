@@ -22,6 +22,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   todo: Todo;
+  triggerRefresh: () => void;
 };
 
 function ViewTodoModal(props: Props) {
@@ -45,7 +46,7 @@ function ViewTodoModal(props: Props) {
     // Getting current date
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
 
     const currentDate = `${yyyy}-${mm}-${dd}`;
@@ -54,10 +55,12 @@ function ViewTodoModal(props: Props) {
   }, []);
 
   async function saveTodo() {
-    // console.log(editedTodo)
     const headers = { "auth-token": localStorage.getItem("user-token") }
     axios.patch(`http://localhost:5000/api/todos/${props.todo._id}`, editedTodo, { headers })
-      .then(res => console.log(res))
+      .then(() => {
+        props.onClose()
+        props.triggerRefresh()
+      })
       .catch(err => console.log(err))
   }
 

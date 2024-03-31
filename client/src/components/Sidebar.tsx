@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Container, Button, Divider, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Text, Container, Button, Divider, useDisclosure, useColorMode } from "@chakra-ui/react";
 import { Pen, LayoutDashboard, ListChecks, NotepadText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from '@chakra-ui/react';
@@ -9,6 +9,7 @@ import axios from "axios";
 
 function Sidebar() {
     const navigate = useNavigate()
+    const { colorMode, toggleColorMode } = useColorMode()
 
     useEffect(() => {
     const headers = { "auth-token": localStorage.getItem("user-token") }
@@ -65,7 +66,7 @@ function Sidebar() {
             <Text textAlign="center" mt="3rem" mb="10px">Theme</Text>
             <Flex justifyContent="center" gap="20px">
                 <Text>Light</Text>
-                <Switch size='lg' />
+                <Switch onChange={toggleColorMode} size='lg' />
                 <Text>Dark</Text>
             </Flex>
             </Container>
