@@ -48,15 +48,15 @@ function EditNote() {
     return (
         <Box>
             <Container maxW="90%">
-            <Heading my="1rem" color="white">Edit Note</Heading>
+            <Heading _dark={{ color: "white" }} color="black" my="1rem">Edit Note</Heading>
             </Container>
             <Divider orientation="horizontal" />
 
             <Container maxW="90%" mt="3rem">
             <form onSubmit={submit}>
             <Flex flexDir="column">
-            <Input placeholder="Note Title" name="title" h="60px" color="white" w="70%" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} />
-            <Textarea mt="2rem" placeholder="Note content" name="content" h="200px" color="white" w="70%" value={formData.content} onChange={(e) => setFormData({...formData, content: e.target.value})} />
+            <Input _dark={{ color: "white" }} color="black" placeholder="Note Title" name="title" h="60px" w="70%" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} />
+            <Textarea _dark={{ color: "white" }} color="black" mt="2rem" placeholder="Note content" name="content" h="200px" w="70%" value={formData.content} onChange={(e) => setFormData({...formData, content: e.target.value})} />
             </Flex>
             <Button mt="1rem" bg="#6675FF" color="white" type="submit">Done</Button>
             </form>

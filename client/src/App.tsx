@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-    <Flex bg="#191919" h="100%">
+    <Flex _dark={{ backgroundColor: "#191919", color: "black" }} bg="white" h="100%">
       <Sidebar />
       <Box flex="1" w="100%">
       <Routes>

@@ -30,19 +30,20 @@ function TodoCard(props: TodoCardProps) {
     }, [])
     
     return (
-        <Box w={props.width} bg="#292929" p="1rem" borderRadius="20px" h="150px">
+        <Box _dark={{ bg: "#292929"}} w={props.width} bg="white" border="1px solid #292929" p="1rem" borderRadius="20px" h="150px">
             <Tooltip label={props.todo.task}>
             <Heading
                 fontSize="25px"
                 mb="1rem"
-                color="white"
+                color="black"
                 textOverflow="ellipsis" // Add text overflow style
                 isTruncated // Enable text truncation
+                _dark={{ color: "white"}}
             >
                 {props.todo.task}
             </Heading>
             </Tooltip>
-            <Text fontSize="12px" color="white">
+            <Text _dark={{ color: "white" }} fontSize="12px" color="black">
             Deadline: { props.todo.deadline ? <span style={{ color: "#FF6666" }}>{deadline.toString()}</span> : <span style={{ color: "#6675FF" }}>No deadline</span>}
             </Text>
             { disclosureMode === "delete" ? <DeleteTodoModal triggerRefresh={props.triggerRefresh} todo={props.todo} todoId={props.todo._id} onOpen={onOpen} isOpen={isOpen} onClose={onClose} /> : "" }

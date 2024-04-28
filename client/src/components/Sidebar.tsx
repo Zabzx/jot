@@ -28,46 +28,46 @@ function Sidebar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-        <Box position="sticky" top="0px" bg="#191919" color="white" w="20%" h="100vh">
+        <Box position="sticky" top="0px" _dark={{ backgroundColor: "#191919" }} bg="white" color="white" w="20%" h="100vh">
             <Flex justifyContent="center" alignItems="center" mt="1rem" gap="1rem">
             <Pen size={40} color="#6675FF" />
-            <Text fontSize="32px">Jot</Text>
+            <Text _dark={{ color: "white" }} color="black" fontSize="32px">Jot</Text>
             </Flex>
 
             <Flex position="relative" zIndex={6} onClick={() => navigate("/profile")} cursor="pointer" flexDir="column" alignItems="center" mt="2rem">
-            { pfp != "" && pfp ? <Avatar size='2xl' border="2px solid white" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
-            <Text mt="1rem" mb="2rem">{userName}</Text>
+            { pfp != "" && pfp ? <Avatar size='2xl' _dark={{ border: "2px solid black" }} border="2px solid black" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
+            <Text _dark={{ color: "white" }} color="black" mt="1rem" mb="2rem">{userName}</Text>
             </Flex>
 
             <Container w="60%" position="relative" zIndex={2}>
             <Flex flexDir="column" >
             <Link to="/">
-            <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _hover={{ bg: "#292929", color: "white",  borderRadius: "20px" }}>
+            <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _dark={{ _hover: { bg: "#292929", color: "white",  borderRadius: "20px" } }} _hover={{ backgroundColor: "#F4F4F4", borderRadius: "20px" }} >
             <LayoutDashboard color="#6675FF" />
-            <Text w="80px">Dashboard</Text>
+            <Text _dark={{ color: "white" }} color="black" w="80px">Dashboard</Text>
             </Flex>
             </Link>
 
             <Link to="/todos">
-            <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _hover={{ bg: "#292929", color: "white",  borderRadius: "20px" }}>
+            <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _dark={{ _hover: { bg: "#292929", color: "white",  borderRadius: "20px" } }} _hover={{ backgroundColor: "#F4F4F4", borderRadius: "20px" }} >
             <ListChecks color="#6675FF" />
-            <Text w="80px">Todos</Text>
+            <Text _dark={{ color: "white" }} color="black" w="80px">Todos</Text>
             </Flex>
             </Link>
 
             <Link to="/notes">
-            <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _hover={{ bg: "#292929", color: "white",  borderRadius: "20px" }}>
+            <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _dark={{ _hover: { bg: "#292929", color: "white",  borderRadius: "20px" } }} _hover={{ backgroundColor: "#F4F4F4", borderRadius: "20px" }} >
             <NotepadText color="#6675FF" />
-            <Text w="80px">Notes</Text>
+            <Text _dark={{ color: "white" }} color="black" w="80px">Notes</Text>
             </Flex>
             </Link>
             </Flex>
 
-            <Text textAlign="center" mt="3rem" mb="10px">Theme</Text>
+            <Text _dark={{ color: "white" }} color="black" textAlign="center" mt="3rem" mb="10px">Theme</Text>
             <Flex justifyContent="center" gap="20px">
-                <Text>Light</Text>
+                <Text _dark={{ color: "white" }} color="black">Dark</Text>
                 <Switch onChange={toggleColorMode} size='lg' />
-                <Text>Dark</Text>
+                <Text _dark={{ color: "white" }} color="black">Light</Text>
             </Flex>
             </Container>
 

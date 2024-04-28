@@ -29,7 +29,7 @@ function ViewNote() {
         <Box>
             <Container maxW="90%">
             <Flex justifyContent="space-between" alignItems="center">
-            <Heading onClick={() => console.log(id)} my="1rem" color="white">{note?.title}</Heading>
+            <Heading _dark={{ color: "white" }} color="black" onClick={() => console.log(id)} my="1rem">{note?.title}</Heading>
             <Trash onClick={onOpen} color="#FF6666" size={40} />
             </Flex>
             </Container>
@@ -37,7 +37,7 @@ function ViewNote() {
             <Divider orientation="horizontal" />
 
             <Container maxW="90%">
-            <Text mt="2rem" whiteSpace="pre-wrap" color="white">{note?.content}</Text>
+            <Text _dark={{ color: "white" }} color="black" mt="2rem" whiteSpace="pre-wrap">{note?.content}</Text>
             <Button mt="1rem" bg="#6675FF" color="white">Edit</Button>
             </Container>
             <DeleteNoteModal triggerRefresh={navigateHome} noteId={id} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />

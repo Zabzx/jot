@@ -53,10 +53,10 @@ function Dashboard() {
   }, []);
 
   return (
-    <Box bg="#191919" w="100%">
+    <Box _dark={{ backgroundColor: "#191919"}} bg="white" w="100%">
       <Container maxW="90%">
         <Link to="/profile">
-        <Heading mt="1rem" pb="3rem" color="white">
+        <Heading _dark={{ color: "white"}} mt="1rem" pb="3rem" color="black">
           Dashboard
         </Heading>
         </Link>
@@ -66,7 +66,7 @@ function Dashboard() {
 
       <Container maxW="90%">
         <Flex justifyContent="space-between" mt="1rem">
-          <Text color="white">Notes.</Text>
+          <Text color="white" _dark={{ color: "white" }} color="black">Notes.</Text>
           <Link to="/notes">
           <Text color="#6675FF">View All</Text>
           </Link>
@@ -99,7 +99,7 @@ function Dashboard() {
         )}
 
         <Flex justifyContent="space-between" my="2rem">
-          <Text color="white">Todos.</Text>
+          <Text color="white" _dark={{ color: "white" }} color="black">Todos.</Text>
           <Link to="/todos">
           <Text color="#6675FF">View All</Text>
           </Link>

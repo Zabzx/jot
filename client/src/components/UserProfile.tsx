@@ -48,7 +48,9 @@ function UserProfile() {
       <Container maxW="90%">
       <Flex alignItems="center" gap="1rem" mt="1rem">
       { pfp !== "" && pfp ? <Avatar size="2xl" border="2px solid white" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
-      <input type="file" accept="image/*" onChange={handleInputChange} />
+      <Box _dark={{ color: "white" }} color="black">
+      <input type="file" accept="image/*"  onChange={handleInputChange} />
+      </Box>
     <Button onClick={uploadImage}>Submit Image</Button>
       </Flex>
       </Container>

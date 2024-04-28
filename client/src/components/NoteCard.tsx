@@ -19,17 +19,18 @@ function NoteCard(props: NoteCardProps) {
     const editUrl = `/editnote/${props.note._id}`
 
     return (
-        <Box mt="1rem" bg="#292929" w={props.width} p="1rem" borderRadius="20px">
+        <Box _dark={{ backgroundColor: "#292929" }} mt="1rem" bg="white" border="1px solid #292929" w={props.width} p="1rem" borderRadius="20px">
             <Heading
                 mb="1rem"
-                color="white"
+                color="black    "
                 textOverflow="ellipsis" // Add text overflow style
                 isTruncated // Enable text truncation
                 fontSize="25px"
+                _dark={{ color: "white" }}
             >
                 {props.note.title}
             </Heading>
-            <Text isTruncated textOverflow="ellipsis" fontSize="12px" color="white">{props.note.content}</Text>
+            <Text isTruncated textOverflow="ellipsis" fontSize="12px" _dark={{ color: "white" }} color="black">{props.note.content}</Text>
 
             <Flex mt="2rem" gap="1rem">
                 <Link to={viewUrl}>
