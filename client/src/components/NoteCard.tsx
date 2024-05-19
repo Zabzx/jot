@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Heading, Text, Flex, useDisclosure } from "@chakra-ui/react";
+import { Box, Heading, Text, Flex, useDisclosure, useBreakpointValue } from "@chakra-ui/react";
 import { ArrowUpRightFromSquare, FilePenLine, Trash } from "lucide-react";
 import DeleteNoteModal from "./Modals/DeleteNoteModal";
 import { Note } from "../types/types";
@@ -12,6 +12,7 @@ type NoteCardProps = {
 }
 
 function NoteCard(props: NoteCardProps) {
+    const iconSize = useBreakpointValue({ base: 15, md: 42, lg: 40 });
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [noteId, setNoteId] = useState<string>("")
 
@@ -25,7 +26,7 @@ function NoteCard(props: NoteCardProps) {
                 color="black    "
                 textOverflow="ellipsis" // Add text overflow style
                 isTruncated // Enable text truncation
-                fontSize="25px"
+                fontSize={["12px", "25px"]}
                 _dark={{ color: "white" }}
             >
                 {props.note.title}
@@ -34,12 +35,12 @@ function NoteCard(props: NoteCardProps) {
 
             <Flex mt="2rem" gap="1rem">
                 <Link to={viewUrl}>
-                <ArrowUpRightFromSquare color="#6675FF" />
+                <ArrowUpRightFromSquare size={iconSize} color="#6675FF" />
                 </Link>
                 <Link to={editUrl}>
-                <FilePenLine color="#6675FF" />
+                <FilePenLine size={iconSize} color="#6675FF" />
                 </Link>
-                <Trash cursor="pointer" onClick={() => {
+                <Trash size={iconSize} cursor="pointer" onClick={() => {
                     setNoteId(props.note._id)
                     onOpen()
                 }} color="#FF6666" />

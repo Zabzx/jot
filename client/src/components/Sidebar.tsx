@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Container, Button, Divider, useDisclosure, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, Text, Container, Button, Divider, useDisclosure, useColorMode, useBreakpointValue } from "@chakra-ui/react";
 import { Pen, LayoutDashboard, ListChecks, NotepadText } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from '@chakra-ui/react';
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Sidebar() {
+    const iconSize = useBreakpointValue({ base: 24, md: 42, lg: 40 });
     const navigate = useNavigate()
     const { colorMode, toggleColorMode } = useColorMode()
 
@@ -30,13 +31,13 @@ function Sidebar() {
         <>
         <Box position="sticky" top="0px" _dark={{ backgroundColor: "#191919" }} bg="white" color="white" w="20%" h="100vh">
             <Flex justifyContent="center" alignItems="center" mt="1rem" gap="1rem">
-            <Pen size={40} color="#6675FF" />
-            <Text _dark={{ color: "white" }} color="black" fontSize="32px">Jot</Text>
+            <Pen size={iconSize} color="#6675FF" />
+            <Text _dark={{ color: "white" }} color="black" fontSize={["16px", "32px"]}>Jot</Text>
             </Flex>
 
             <Flex position="relative" zIndex={6} onClick={() => navigate("/profile")} cursor="pointer" flexDir="column" alignItems="center" mt="2rem">
-            { pfp != "" && pfp ? <Avatar size='2xl' _dark={{ border: "2px solid black" }} border="2px solid black" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
-            <Text _dark={{ color: "white" }} color="black" mt="1rem" mb="2rem">{userName}</Text>
+            { pfp != "" && pfp ? <Avatar size={["md", "2xl"]}_dark={{ border: "2px solid black" }} border="2px solid black" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
+            <Text _dark={{ color: "white" }} fontSize={["12px", "16px"]} color="black" mt="1rem" mb="2rem">{userName}</Text>
             </Flex>
 
             <Container w="60%" position="relative" zIndex={2}>
@@ -44,30 +45,30 @@ function Sidebar() {
             <Link to="/">
             <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _dark={{ _hover: { bg: "#292929", color: "white",  borderRadius: "20px" } }} _hover={{ backgroundColor: "#F4F4F4", borderRadius: "20px" }} >
             <LayoutDashboard color="#6675FF" />
-            <Text _dark={{ color: "white" }} color="black" w="80px">Dashboard</Text>
+            <Text display={["none", "block"]} _dark={{ color: "white" }} color="black" w="80px">Dashboard</Text>
             </Flex>
             </Link>
 
             <Link to="/todos">
             <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _dark={{ _hover: { bg: "#292929", color: "white",  borderRadius: "20px" } }} _hover={{ backgroundColor: "#F4F4F4", borderRadius: "20px" }} >
             <ListChecks color="#6675FF" />
-            <Text _dark={{ color: "white" }} color="black" w="80px">Todos</Text>
+            <Text display={["none", "block"]} _dark={{ color: "white" }} color="black" w="80px">Todos</Text>
             </Flex>
             </Link>
 
             <Link to="/notes">
             <Flex justifyContent="space-around" gap="10px" cursor="pointer" py="1rem" transition="0.4s" _dark={{ _hover: { bg: "#292929", color: "white",  borderRadius: "20px" } }} _hover={{ backgroundColor: "#F4F4F4", borderRadius: "20px" }} >
             <NotepadText color="#6675FF" />
-            <Text _dark={{ color: "white" }} color="black" w="80px">Notes</Text>
+            <Text display={["none", "block"]} _dark={{ color: "white" }} color="black" w="80px">Notes</Text>
             </Flex>
             </Link>
             </Flex>
 
-            <Text _dark={{ color: "white" }} color="black" textAlign="center" mt="3rem" mb="10px">Theme</Text>
+            <Text display={["none", "block"]} _dark={{ color: "white" }} color="black" textAlign="center" mt="3rem" mb="10px">Theme</Text>
             <Flex justifyContent="center" gap="20px">
-                <Text _dark={{ color: "white" }} color="black">Dark</Text>
+                <Text display={["none", "block"]} _dark={{ color: "white" }} color="black">Dark</Text>
                 <Switch onChange={toggleColorMode} size='lg' />
-                <Text _dark={{ color: "white" }} color="black">Light</Text>
+                <Text display={["none", "block"]} _dark={{ color: "white" }} color="black">Light</Text>
             </Flex>
             </Container>
 

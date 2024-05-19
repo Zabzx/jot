@@ -6,6 +6,7 @@ import "@fontsource/lato"
 import Login from './components/Login.tsx'
 import SignUp from './components/SignUp.tsx'
 import PrivateRoutes from './components/PrivateRoutes.tsx'
+import "./index.css"
 
 const theme = extendTheme({
   fonts: {

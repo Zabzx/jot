@@ -6,7 +6,8 @@ import {
   Divider,
   Flex,
   Grid,
-  useDisclosure
+  useDisclosure,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import NoteCard from "./NoteCard";
 import TodoCard from "./TodoCard";
@@ -25,6 +26,8 @@ function Dashboard() {
   const [todo, setTodo] = useState<Todo>()
 
   const [disclosureMode, setDisclosureMode] = useState("view")
+
+  const noteWidth = useBreakpointValue({ base: "150px", lg: "350px"})
 
   async function triggerRefresh() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
@@ -54,7 +57,7 @@ function Dashboard() {
 
   return (
     <Box _dark={{ backgroundColor: "#191919"}} bg="white" w="100%">
-      <Container maxW="90%">
+      <Container maxW="100%">
         <Link to="/profile">
         <Heading _dark={{ color: "white"}} mt="1rem" pb="3rem" color="black">
           Dashboard
@@ -64,22 +67,22 @@ function Dashboard() {
 
       <Divider orientation="horizontal" />
 
-      <Container maxW="90%">
+      <Container maxW="80%">
         <Flex justifyContent="space-between" mt="1rem">
-          <Text color="white" _dark={{ color: "white" }} color="black">Notes.</Text>
+          <Text color="white" _dark={{ color: "white" }}>Notes.</Text>
           <Link to="/notes">
           <Text color="#6675FF">View All</Text>
           </Link>
         </Flex>
 
         {notes?.length !== 0 ? (
-          <Grid templateColumns="repeat(3, 1fr)" gap="2rem">
+          <Grid templateColumns={["repeat(1, 1fr)", "repeat(3, 1fr)"]} gap="2rem">
             {notes?.map((note, index) => {
               if (index >= 6) {
                 // Only render up to 6 cards
                 return;
               }
-              return <NoteCard triggerRefresh={triggerRefresh}  key={note._id} note={note} width="350px" />;
+              return <NoteCard triggerRefresh={triggerRefresh}  key={note._id} note={note} width={noteWidth} />;
             })}
           </Grid>
         ) : (
@@ -99,20 +102,20 @@ function Dashboard() {
         )}
 
         <Flex justifyContent="space-between" my="2rem">
-          <Text color="white" _dark={{ color: "white" }} color="black">Todos.</Text>
+          <Text color="white" _dark={{ color: "white" }}>Todos.</Text>
           <Link to="/todos">
           <Text color="#6675FF">View All</Text>
           </Link>
         </Flex>
 
         {todos?.length !== 0 ? (
-          <Flex gap="2rem"  alignItems="center">
+          <Flex flexDir={["column", "row"]} gap="2rem"  alignItems={["", "center"]}>
             {todos?.map((todo, index) => {
               if (index >= 5) {
                 return;
               }
 
-              return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width="200px" setDisclosureMode={setDisclosureMode} />;
+              return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width={noteWidth} setDisclosureMode={setDisclosureMode} />;
             })}
             <Box
             onClick={() => {
