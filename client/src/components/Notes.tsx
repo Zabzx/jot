@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { Note } from "../types/types";
-import { Box, Container, Heading, Divider, Grid } from "@chakra-ui/react";
+import { Box, Container, Heading, Divider, Grid, useBreakpointValue } from "@chakra-ui/react";
 import NoteCard from "./NoteCard";
 import axios from "axios";
 
 function Notes() {
     const [notes, setNotes] = useState<Note[]>()
+    const noteWidth = useBreakpointValue({ base: "250px", lg: "500px"})
 
     async function triggerRefresh() {
         const headers = { "auth-token": localStorage.getItem("user-token") }
@@ -29,9 +30,9 @@ function Notes() {
         <Divider mt="2rem" />
 
         <Container maxW="90%">
-            <Grid templateColumns="repeat(2, 1fr)" mb="1rem">
+            <Grid templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} mb="1rem">
                 {notes?.map((note, i) => (
-                    <NoteCard triggerRefresh={triggerRefresh} note={note} key={i} width="500px" />
+                    <NoteCard triggerRefresh={triggerRefresh} note={note} key={i} width={noteWidth} />
                 ))}
             </Grid>
         </Container>

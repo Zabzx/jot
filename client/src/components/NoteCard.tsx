@@ -12,7 +12,7 @@ type NoteCardProps = {
 }
 
 function NoteCard(props: NoteCardProps) {
-    const iconSize = useBreakpointValue({ base: 15, md: 42, lg: 40 });
+    const iconSize = useBreakpointValue({ base: 15, md: 28, lg: 28 });
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [noteId, setNoteId] = useState<string>("")
 
@@ -23,10 +23,10 @@ function NoteCard(props: NoteCardProps) {
         <Box _dark={{ backgroundColor: "#292929" }} mt="1rem" bg="white" border="1px solid #292929" w={props.width} p="1rem" borderRadius="20px">
             <Heading
                 mb="1rem"
-                color="black    "
+                color="black"
                 textOverflow="ellipsis" // Add text overflow style
                 isTruncated // Enable text truncation
-                fontSize={["12px", "25px"]}
+                fontSize={["16px", "25px"]}
                 _dark={{ color: "white" }}
             >
                 {props.note.title}

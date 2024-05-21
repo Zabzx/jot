@@ -33,7 +33,7 @@ function TodoCard(props: TodoCardProps) {
         <Box _dark={{ bg: "#292929"}} w={props.width} bg="white" border="1px solid #292929" p="1rem" borderRadius="20px" h="150px">
             <Tooltip label={props.todo.task}>
             <Heading
-                fontSize="25px"
+                fontSize={["16px", "25px"]}
                 mb="1rem"
                 color="black"
                 textOverflow="ellipsis" // Add text overflow style

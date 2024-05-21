@@ -27,7 +27,8 @@ function Dashboard() {
 
   const [disclosureMode, setDisclosureMode] = useState("view")
 
-  const noteWidth = useBreakpointValue({ base: "150px", lg: "350px"})
+  const noteWidth = useBreakpointValue({ base: "250px", lg: "350px"})
+  const todoWidth = useBreakpointValue({ base: "250px", lg: "200px" })
 
   async function triggerRefresh() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
@@ -56,7 +57,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <Box _dark={{ backgroundColor: "#191919"}} bg="white" w="100%">
+    <Box _dark={{ backgroundColor: "#191919"}} bg="white" w="90%">
       <Container maxW="100%">
         <Link to="/profile">
         <Heading _dark={{ color: "white"}} mt="1rem" pb="3rem" color="black">
@@ -67,7 +68,7 @@ function Dashboard() {
 
       <Divider orientation="horizontal" />
 
-      <Container maxW="80%">
+      <Container maxW="100%">
         <Flex justifyContent="space-between" mt="1rem">
           <Text color="white" _dark={{ color: "white" }}>Notes.</Text>
           <Link to="/notes">
@@ -115,7 +116,7 @@ function Dashboard() {
                 return;
               }
 
-              return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width={noteWidth} setDisclosureMode={setDisclosureMode} />;
+              return <TodoCard triggerRefresh={triggerRefresh} setTodo={setTodo} onOpen={onOpen} key={todo._id} todo={todo} width={todoWidth} setDisclosureMode={setDisclosureMode} />;
             })}
             <Box
             onClick={() => {
