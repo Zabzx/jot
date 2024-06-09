@@ -1,4 +1,4 @@
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, } from "@chakra-ui/react"
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useBreakpointValue } from "@chakra-ui/react"
 import { Todo } from "../../types/types"
 import axios from "axios"
 
@@ -23,9 +23,11 @@ function DeleteTodoModal(props: Props) {
       .catch(err => console.log(err))
   }
 
+  const modalSize = useBreakpointValue({ base: "xs", lg: "sm" })
+
   return (
     <>
-      <Modal isOpen={props.isOpen} onClose={props.onClose}>
+      <Modal size={modalSize} isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay bg="note" backdropFilter="auto" backdropInvert="80%" backdropBlur="2px"/>
         <ModalContent color="white" bg="#191919">
           <ModalHeader>Delete Todo</ModalHeader>

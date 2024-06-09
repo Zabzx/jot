@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 
@@ -22,8 +23,11 @@ function LogOutModal(props: Props) {
     localStorage.setItem("user-token", "");
     navigate("/login");
   }
+
+  const modalSize = useBreakpointValue({ base: "xs", lg: "sm" })
+
   return (
-    <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered>
+    <Modal size={modalSize} isOpen={props.isOpen} onClose={props.onClose} isCentered>
       <ModalOverlay
         bg="none"
         backdropFilter="auto"

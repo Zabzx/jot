@@ -1,4 +1,4 @@
-import { Box, Input, InputGroup, Heading, Avatar, Container, Divider, Flex, Button } from "@chakra-ui/react"
+import { Box, Heading, Avatar, Container, Divider, Flex, Button } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
@@ -46,7 +46,7 @@ function UserProfile() {
       </Container>
       <Divider orientation="horizontal" />
       <Container maxW="90%">
-      <Flex alignItems="center" gap="1rem" mt="1rem">
+      <Flex flexDir={["column", "row"]} alignItems="center" gap="1rem" mt="1rem">
       { pfp !== "" && pfp ? <Avatar size="2xl" border="2px solid white" src={`../../public/pfp/${pfp.image}`} /> : <Avatar size="2xl" border="2px solid white" src="" /> }
       <Box _dark={{ color: "white" }} color="black">
       <input type="file" accept="image/*"  onChange={handleInputChange} />

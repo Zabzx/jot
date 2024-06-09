@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody,  ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter, Input, Checkbox, useToast } from "@chakra-ui/react"
+import { Button, Modal, ModalBody,  ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalFooter, Input, Checkbox, useToast, useBreakpointValue } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
@@ -52,9 +52,11 @@ function CreateTodoModal(props: Props) {
       .catch(err => console.log(err))
   }
 
+  const modalSize = useBreakpointValue({ base: "xs", lg: "sm" })
+
   return (
     <>
-      <Modal isOpen={props.isOpen} onClose={props.onClose}>
+      <Modal size={modalSize} isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create Todo</ModalHeader>
