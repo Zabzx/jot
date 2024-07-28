@@ -40,9 +40,8 @@ async function getUserInfo(req, res) {
 
 async function getUsers(req, res) {
     try {
-        // const data = await userSchema.find();
-        // res.status(200).json(data)
-        res.send("zabz")
+        const data = await userSchema.find();
+        res.status(200).json(data)
     } catch (error) {
         console.log(error);
     }
