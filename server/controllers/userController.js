@@ -37,14 +37,15 @@ async function getUserInfo(req, res) {
     res.status(500).json({ error: error})
   }
 }
-// async function getUsers(req, res) {
-//     try {
-//         const data = await userSchema.find();
-//         res.status(200).json(data)
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+
+async function getUsers(req, res) {
+    try {
+        const data = await userSchema.find();
+        res.status(200).json(data)
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 async function login(req, res) {
   const user = await userSchema.findOne({
@@ -115,7 +116,7 @@ async function deleteUser(req, res) {
 module.exports = {
   registerUser,
   login,
-  // getUser,
+  getUsers,
   getUserInfo,
   updateUsername,
   changePassword,

@@ -14,7 +14,7 @@ function Todos() {
             .catch(err => console.log(err))
     })
 
-    const todoWidth = useBreakpointValue({ base: "250px", lg: "200px" })
+    const todoWidth = useBreakpointValue({ base: "250px", lg: "400px" })
     return (
         <Box>
         <Container maxW="90%">
