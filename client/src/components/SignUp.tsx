@@ -32,7 +32,7 @@ function SignUp() {
         const data = {...formData}
         delete data.passwordConfirm
         
-        axios.post("http://localhost:5000/api/user/register", data)
+        axios.post("https://jot-w01a.onrender.com/api/user/register", data)
             .then(res => console.log(res))
             .then(() => getCreatedUserToken())
             .catch(err => console.log(err))

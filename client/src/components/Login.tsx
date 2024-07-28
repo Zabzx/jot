@@ -19,7 +19,7 @@ function Login() {
 
     function testRequest(e: React.FormEvent) {
         e.preventDefault();
-        axios.post("http://localhost:5000/api/user/login", formData)
+        axios.post("https://jot-w01a.onrender.com/api/user/login", formData)
             .then(res => localStorage.setItem("user-token", res.data))
             .then(() => navigate("/"))
             .then(() => console.log("wtf"))
