@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import Login from "./Login";
 
 const PrivateRoutes = () => {
@@ -11,6 +11,8 @@ const PrivateRoutes = () => {
     "auth-token": token
   }
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     axios.get("http://localhost:5000/protect", { headers })
       .then(res => {
@@ -19,8 +21,7 @@ const PrivateRoutes = () => {
         } else {
           console.log("Invalid token")
         }
-
-      })
+      }).catch(() => navigate("/login"))
   }, [])
 
   return (

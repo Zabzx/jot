@@ -21,8 +21,9 @@ function Login() {
         e.preventDefault();
         axios.post("https://jot-w01a.onrender.com/api/user/login", formData)
             .then(res => localStorage.setItem("user-token", res.data))
-            .then(() => navigate("/"))
-            .then(() => console.log("wtf"))
+            .then(() => {
+                navigate("/")
+            })
             .catch(err => console.log(err))
     }
 
