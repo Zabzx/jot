@@ -77,11 +77,11 @@ app.post("/upload-image", auth, upload.single("image"), async (req, res) => {
       .then(data => {
       if (data.length < 1) {
         Images.create({ image: imageName, userId: req.user.id })
-          .then(() => res.json({ result: "image uploaded" }))
+          .then(() => res.json({ result: "image uploaded", me: true }))
           .catch(err => res.json({ error: err }))
       } else {
         Images.findByIdAndUpdate(data[0]._id.toHexString(), { image: imageName }, { new: true })
-          .then(data => res.send(data))
+          .then(data => res.json({result: data, me: true}))
           .catch(err => res.send(err))
       }
     })
