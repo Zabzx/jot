@@ -32,11 +32,11 @@ function Dashboard() {
 
   async function triggerRefresh() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
-    await axios.get("http://localhost:5000/api/notes", { headers } )
+    await axios.get("https://jot-w01a.onrender.com/api/notes", { headers } )
       .then(res => setNotes(res.data))
       .catch(err => console.log(err))
 
-    await axios.get("http://localhost:5000/api/todos", { headers })
+    await axios.get("https://jot-w01a.onrender.com/api/todos", { headers })
       .then(res => setTodos(res.data))
       .catch(err => console.log(err))
   }
@@ -45,13 +45,13 @@ function Dashboard() {
     const headers = { "auth-token": localStorage.getItem("user-token") };
     // Get user notes
     axios
-      .get("http://localhost:5000/api/notes", { headers })
+      .get("https://jot-w01a.onrender.com/api/notes", { headers })
       .then((res) => setNotes(res.data))
       .catch((err) => console.log(err));
 
     // Get user todos
     axios
-      .get("http://localhost:5000/api/todos", { headers })
+      .get("https://jot-w01a.onrender.com/api/todos", { headers })
       .then((res) => setTodos(res.data))
       .catch((err) => console.log(err));
   }, []);

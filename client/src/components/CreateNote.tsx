@@ -18,7 +18,7 @@ function CreateNote() {
             return
         }
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        await axios.post("http://localhost:5000/api/notes", formData, { headers })
+        await axios.post("https://jot-w01a.onrender.com/api/notes", formData, { headers })
             .then(() => {
                 toast({
                     title: "Success",

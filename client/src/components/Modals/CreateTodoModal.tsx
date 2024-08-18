@@ -31,7 +31,7 @@ function CreateTodoModal(props: Props) {
       return
     }
     const headers = { "auth-token": localStorage.getItem("user-token" ) }
-    await axios.post("http://localhost:5000/api/todos", todo, { headers })
+    await axios.post("https://jot-w01a.onrender.com/api/todos", todo, { headers })
       .then((res) => {
         toast({
           title: "Success",

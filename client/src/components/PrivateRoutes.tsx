@@ -14,7 +14,7 @@ const PrivateRoutes = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get("http://localhost:5000/protect", { headers })
+    axios.get("https://jot-w01a.onrender.com/protect", { headers })
       .then(res => {
         if (res.data !== "Invalid token") {
           setVerified!(true)

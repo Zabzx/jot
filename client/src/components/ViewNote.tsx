@@ -16,7 +16,7 @@ function ViewNote() {
 
     useEffect(() => {
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        axios.get(`http://localhost:5000/api/notes/${id}`, { headers })
+        axios.get(`https://jot-w01a.onrender.com/api/notes/${id}`, { headers })
             .then(res => setNote(res.data))
             .catch(err => console.log(err))
     }, [])

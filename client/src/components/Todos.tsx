@@ -9,7 +9,7 @@ function Todos() {
 
     useEffect(() => {
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        axios.get("http://localhost:5000/api/todos", { headers})
+        axios.get("https://jot-w01a.onrender.com/api/todos", { headers})
             .then(res => setTodos(res.data))
             .catch(err => console.log(err))
     })

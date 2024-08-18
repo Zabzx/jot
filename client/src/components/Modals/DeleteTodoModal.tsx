@@ -14,7 +14,7 @@ type Props = {
 function DeleteTodoModal(props: Props) {
   async function deleteTodo() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
-    await axios.delete(`http://localhost:5000/api/todos/${props.todoId}`, { headers })
+    await axios.delete(`https://jot-w01a.onrender.com/api/todos/${props.todoId}`, { headers })
       .then((res) => {
       console.log(res)
       props.onClose()

@@ -10,14 +10,14 @@ function Notes() {
 
     async function triggerRefresh() {
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        axios.get("http://localhost:5000/api/notes", { headers })
+        axios.get("https://jot-w01a.onrender.com/api/notes", { headers })
             .then(res => setNotes(res.data))
             .catch(err => console.log(err))
     }
 
     useEffect(() => {
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        axios.get("http://localhost:5000/api/notes", { headers })
+        axios.get("https://jot-w01a.onrender.com/api/notes", { headers })
             .then(res => setNotes(res.data))
             .catch(err => console.log(err))
     }, [])

@@ -44,7 +44,7 @@ function SignUp() {
             password: formData.password
         }
 
-        axios.post("http://localhost:5000/api/user/login", data)
+        axios.post("https://jot-w01a.onrender.com/api/user/login", data)
             .then(res => localStorage.setItem("user-token", res.data))
             .then(() => console.log(localStorage.getItem("user-token")))
             .then(() => navigate("/"))

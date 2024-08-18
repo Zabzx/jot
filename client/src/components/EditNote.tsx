@@ -13,7 +13,7 @@ function EditNote() {
 
     useEffect(() => {
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        axios.get(`http://localhost:5000/api/notes/${id}`, { headers })
+        axios.get(`https://jot-w01a.onrender.com/api/notes/${id}`, { headers })
             .then(res => {
                 setFormData({
                     title:  res.data.title,
@@ -34,7 +34,7 @@ function EditNote() {
         }
 
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        await axios.patch(`http://localhost:5000/api/notes/${id}`, formData, { headers })
+        await axios.patch(`https://jot-w01a.onrender.com/api/notes/${id}`, formData, { headers })
             .then(() => {
                 toast({
                     title: "Success",

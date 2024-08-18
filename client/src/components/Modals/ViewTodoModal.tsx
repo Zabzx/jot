@@ -57,7 +57,7 @@ function ViewTodoModal(props: Props) {
 
   async function saveTodo() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
-    axios.patch(`http://localhost:5000/api/todos/${props.todo._id}`, editedTodo, { headers })
+    axios.patch(`https://jot-w01a.onrender.com/api/todos/${props.todo._id}`, editedTodo, { headers })
       .then(() => {
         props.onClose()
         props.triggerRefresh()

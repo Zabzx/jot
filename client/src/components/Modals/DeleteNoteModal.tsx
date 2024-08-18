@@ -25,7 +25,7 @@ function DeleteNoteModal(props: Props) {
 
     async function deleteNote() {
         const headers = { "auth-token": localStorage.getItem("user-token") }
-        await axios.delete(`http://localhost:5000/api/notes/${props.noteId}`, { headers })
+        await axios.delete(`https://jot-w01a.onrender.com/api/notes/${props.noteId}`, { headers })
             .then(() => {
               props.onClose()
               props.triggerRefresh()

@@ -8,7 +8,7 @@ function UserProfile() {
 
   useEffect(() => {
     const headers = { "auth-token": localStorage.getItem("user-token") }
-    axios.get("http://localhost:5000/get-image", { headers })
+    axios.get("https://jot-w01a.onrender.com/get-image", { headers })
      .then(res => setPfp(res.data.data[0]))
      .catch(err => console.log(err))
   }, [])
@@ -28,14 +28,14 @@ function UserProfile() {
 
     const headers = { "auth-token": localStorage.getItem("user-token"), "Content-Type": "multipart/form-data" }
 
-    await axios.post("http://localhost:5000/upload-image", formData, { headers })
+    await axios.post("https://jot-w01a.onrender.com/upload-image", formData, { headers })
       .then(res => console.log(res))
       .catch(err => console.log(err))
   }
 
   async function find() {
     const headers = { "auth-token": localStorage.getItem("user-token") }
-    await axios.get("http://localhost:5000/find", { headers })
+    await axios.get("https://jot-w01a.onrender.com/find", { headers })
       .then(res => console.log(res))
       .catch(err => console.log(err))
   }

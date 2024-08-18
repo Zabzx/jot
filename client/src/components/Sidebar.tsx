@@ -14,12 +14,12 @@ function Sidebar() {
 
     useEffect(() => {
     const headers = { "auth-token": localStorage.getItem("user-token") }
-    axios.get("http://localhost:5000/api/user/user", { headers })
+    axios.get("https://jot-w01a.onrender.com/api/user/user", { headers })
       .then(res => setUsername(res.data.username))
       .catch(err => console.log(err))
 
     // Getting profile picture
-    axios.get("http://localhost:5000/get-image", { headers })
+    axios.get("https://jot-w01a.onrender.com/get-image", { headers })
       .then(res => setPfp(res.data.data[0]))
       .catch(err => console.log(err))
   }, [])
