@@ -43,57 +43,45 @@ const Images = mongoose.model("ImageDetails")
 
 // Image uploading
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const storage = multer.diskStorage({
   destination: function (_, _, cb) {
-    cb(null, "../client/public/pfp/");
+    const uploadPath = path.join(__dirname, "../client/public/pfp/");
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
   },
   filename: function (_, file, cb) {
-    const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
+    const uniqueSuffix = Date.now() + "-" + file.originalname;
+    cb(null, uniqueSuffix);
   },
 });
 
 const upload = multer({ storage: storage });
 
-app.get("/find", auth, async (req, res) => {
-  await Images.find({ userId: req.user.id })
-    .then(data => {
-    if (data.length < 1) {
-      res.json({ imageStatus: "No image" })
-    } else {
-      res.json({ imageStatus: "Image present" })
-    }
-    console.log(data)
-  })
-    .catch(err => console.log(err))
-})
-
 app.post("/upload-image", auth, upload.single("image"), async (req, res) => {
   const imageName = req.file.filename;
   try {
-    // Find out if the user already has a profile picture
-    await Images.find({ userId: req.user.id })
-      .then(data => {
-      if (data.length < 1) {
-        Images.create({ image: imageName, userId: req.user.id })
-          .then(() => res.json({ result: "image uploaded", me: true }))
-          .catch(err => res.json({ error: err }))
-      } else {
-        Images.findByIdAndUpdate(data[0]._id.toHexString(), { image: imageName }, { new: true })
-          .then(data => res.json({result: data, me: true}))
-          .catch(err => res.send(err))
-      }
-    })
-    // await Images.create({ image: imageName, userId: req.user.id })
-    // res.json({ status: "ok" })
+    const userImages = await Images.find({ userId: req.user.id });
+    if (userImages.length < 1) {
+      await Images.create({ image: imageName, userId: req.user.id });
+      res.json({ result: "image uploaded", me: true });
+    } else {
+      const updatedImage = await Images.findByIdAndUpdate(userImages[0]._id, { image: imageName }, { new: true });
+      res.json({ result: updatedImage, me: true });
+    }
   } catch (error) {
-    res.json({ status: error })
+    res.json({ status: error.message });
   }
-})
-app.listen(5000, () => {
-    console.log("Server listening on port 5000");
 });
+
+app.listen(5000, () => {
+  console.log("Server listening on port 5000");
+});
+
 
 app.get("/get-image", auth, async (req, res) => {
   try {

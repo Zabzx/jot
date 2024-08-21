@@ -14,9 +14,9 @@ function UserProfile() {
   }, [])
 
   // Delete previous pfps
-  useEffect(() => {
-    console.log(pfp)
-  }, [pfp])
+  // useEffect(() => {
+  //   console.log(pfp)
+  // }, [pfp])
 
   function handleInputChange(e: React.FormEvent) {
     setSelectedImage(e.target.files[0])

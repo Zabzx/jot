@@ -20,7 +20,9 @@ function Sidebar() {
 
     // Getting profile picture
     axios.get("https://jot-w01a.onrender.com/get-image", { headers })
-      .then(res => setPfp(res.data.data[0]))
+      .then(res => {
+        setPfp(res.data.data[0].image)
+      })
       .catch(err => console.log(err))
   }, [])
     
@@ -31,7 +33,12 @@ function Sidebar() {
         <>
         <Box position="sticky" top="0px" _dark={{ backgroundColor: "#191919" }} bg="white" color="white" w="20%" h="100vh">
             <Flex justifyContent="center" alignItems="center" mt="1rem" gap="1rem">
-            <Pen size={iconSize} color="#6675FF" />
+            <Pen onClick={() => {
+                const headers = { "auth-token": localStorage.getItem("user-token") }
+                axios.get("https://jot-w01a.onrender.com/get-image", { headers })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err))
+            }} size={iconSize} color="#6675FF" />
             <Text _dark={{ color: "white" }} color="black" fontSize={["16px", "32px"]}>Jot</Text>
             </Flex>
 
